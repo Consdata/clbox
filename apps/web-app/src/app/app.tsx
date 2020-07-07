@@ -11,5 +11,3 @@ export const App = () => {
         </StyledApp>
     );
 };
-
-export default App;

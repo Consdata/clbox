@@ -1,13 +1,20 @@
+import {ConnectedRouter} from 'connected-react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 
-import { BrowserRouter } from 'react-router-dom';
+import {App} from './app/app';
+import {browserHistory} from './app/platform/browser-history';
+import {configureStore} from './app/platform/store';
+import './style.scss';
 
-import App from './app/app';
+const store = configureStore({});
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <ConnectedRouter history={browserHistory}>
+            <App/>
+        </ConnectedRouter>
+    </Provider>,
+    document.getElementById('clbox')
 );
