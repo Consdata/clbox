@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {Redirect, Route, Switch} from 'react-router';
-import {AppState} from '../../../state/app-state';
+import {AppState} from '../../../../state/app-state';
 import {LoginWait} from '../login-wait/login-wait';
 import {Login} from '../login/login';
 import {RestorePassword} from '../restore-password/restore-password';

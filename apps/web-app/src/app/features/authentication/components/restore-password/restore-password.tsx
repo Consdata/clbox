@@ -4,7 +4,7 @@ import Link from '@material-ui/core/Link';
 import React from 'react';
 import {RouteComponentProps} from 'react-router';
 import styled from 'styled-components';
-import {FullScreenCentered} from '../../layout/full-screen-centered';
+import {FullScreenCentered} from '../../../layout/full-screen-centered';
 
 const Form = styled.form`
     display: flex;
@@ -25,11 +25,14 @@ const Spacer = styled.div`
     margin-bottom: 16px;
 `;
 
-export const RestorePassword = ({history}: RouteComponentProps) => <FullScreenCentered>
-    <Form>
-        <FullWithTextField id="standard-basic" label="Email"/>
-        <Spacer />
-        <Button color="primary">Restore password</Button>
-        <SecondaryLink color="textSecondary" onClick={() => history.push('/login')}>Return to login</SecondaryLink>
-    </Form>
-</FullScreenCentered>;
+export const RestorePassword = ({history}: RouteComponentProps) => {
+    const onRedirectToLogin = () => history.push('/login');
+    return <FullScreenCentered>
+        <Form>
+            <FullWithTextField id="email" label="Email"/>
+            <Spacer/>
+            <Button color="primary">Restore password</Button>
+            <SecondaryLink color="textSecondary" onClick={onRedirectToLogin}>Return to login</SecondaryLink>
+        </Form>
+    </FullScreenCentered>;
+};

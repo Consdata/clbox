@@ -6,8 +6,8 @@ import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {userAuthenticationRevoked} from '../authentication/state/user-authentication-revoked.action';
-import {SelectTeam} from '../team/select-team/select-team';
+import {logout} from '../authentication/state/logout/logout.action';
+import {SelectTeam} from '../team/components/select-team/select-team';
 
 const Actions = styled.div`
     padding: 0 12px;
@@ -40,7 +40,7 @@ const NavbarView = ({onLogout}: ConnectedProps<typeof connector>) => (
 const connector = connect(
     undefined,
     {
-        onLogout: () => userAuthenticationRevoked()
+        onLogout: () => logout()
     }
 );
 

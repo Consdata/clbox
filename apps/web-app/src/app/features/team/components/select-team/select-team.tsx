@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import React, {useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
-import {AppState} from '../../../state/app-state';
+import {AppState} from '../../../../state/app-state';
 
 export const SelectTeamView = ({teams, team}: ViewProps) => {
     const [anchorEl, setAnchorEl] = useState(null);
