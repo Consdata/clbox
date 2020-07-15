@@ -4,14 +4,14 @@ import {Redirect, Route, Switch} from 'react-router';
 import {AppState} from '../../../../state/app-state';
 import {LoginWait} from '../login-wait/login-wait';
 import {Login} from '../login/login';
-import {RestorePassword} from '../restore-password/restore-password';
+import {ResetPassword} from '../restore-password/reset-password';
 
 export const UnauthenticatedAppView = ({authenticated}: ViewProps) => <div>
     {authenticated === undefined && <LoginWait/>}
     {authenticated === true && <Redirect to='/'/>}
     {authenticated === false && <Switch>
         <Route path='/login' component={Login}/>
-        <Route path='/reset' component={RestorePassword}/>
+        <Route path='/reset' component={ResetPassword}/>
         <Redirect to='/login'/>
     </Switch>}
 </div>;

@@ -59,7 +59,7 @@ const LoginView = ({loggedIn, history}: ConnectedProps<typeof connector> & Route
             })
         );
     };
-    const redirectToRestore = () => history.push('/restore');
+    const redirectToRestore = () => history.push('/reset');
     return <FullScreenCentered>
         {!state.authenticating && <Form onSubmit={ev => submit(ev)}>
             <FullWithTextField label="Email"
@@ -77,7 +77,7 @@ const LoginView = ({loggedIn, history}: ConnectedProps<typeof connector> & Route
             {state.message && <ErrorMessage>{state.message}</ErrorMessage>}
             <Spacer/>
             <Button color="primary" type="submit">Login</Button>
-            <SecondaryLink color="textSecondary" onClick={redirectToRestore}>Restore password</SecondaryLink>
+            <SecondaryLink color="textSecondary" onClick={redirectToRestore}>Reset password</SecondaryLink>
         </Form>}
         {state.authenticating && <CircularProgress size={50}/>}
     </FullScreenCentered>;
