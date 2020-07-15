@@ -1,13 +1,13 @@
-import {TextField} from '@material-ui/core';
+import {CircularProgress, TextField} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import React, {useState} from 'react';
 import {connect, ConnectedProps} from 'react-redux'
 import {RouteComponentProps} from 'react-router';
 import styled from 'styled-components';
-import {AppState} from '../../../../state/app-state';
+import {firebaseApp} from '../../../firebase/firebase.app';
 import {FullScreenCentered} from '../../../layout/full-screen-centered';
-import {login} from '../../state/login/login.action';
+import {loggedIn} from '../../state/login/logged-in.action';
 
 const Form = styled.form`
     display: flex;
@@ -33,43 +33,61 @@ const ErrorMessage = styled.div`
     color: red;
 `;
 
-const LoginView = ({loginStatus, onLogin, history}: ConnectedProps<typeof connector> & RouteComponentProps) => {
+const LoginView = ({loggedIn, history}: ConnectedProps<typeof connector> & RouteComponentProps) => {
     const [state, setState] = useState({
         email: '',
-        password: ''
+        password: '',
+        message: '',
+        authenticating: false
     });
+    const handleChange = event => {
+        setState({
+            ...state,
+            [event.target.id]: event.target.value,
+            message: undefined
+        });
+    }
+    const submit = event => {
+        event.preventDefault();
+        setState({...state, authenticating: true});
+        firebaseApp.auth().signInWithEmailAndPassword(state.email, state.password).then(
+            () => loggedIn(),
+            error => setState({
+                ...state,
+                message: error.message,
+                authenticating: false
+            })
+        );
+    };
+    const redirectToRestore = () => history.push('/restore');
     return <FullScreenCentered>
-        <Form>
-            <FullWithTextField id="email"
-                               label="Email"
+        {!state.authenticating && <Form onSubmit={ev => submit(ev)}>
+            <FullWithTextField label="Email"
+                               id="email"
                                value={state.email}
-                               onChange={ev => setState({...state, email: ev.currentTarget.value})}
+                               onChange={handleChange}
             />
-            <FullWithTextField id="password"
+            <FullWithTextField label="Password"
                                type="password"
+                               id="password"
                                autoComplete="current-password"
-                               label="Password"
                                value={state.password}
-                               onChange={ev => setState({...state, password: ev.currentTarget.value})}
+                               onChange={handleChange}
             />
-            {loginStatus && <ErrorMessage>{loginStatus}</ErrorMessage>}
+            {state.message && <ErrorMessage>{state.message}</ErrorMessage>}
             <Spacer/>
-            <Button color="primary" onClick={() => onLogin(state.email, state.password)}>Login</Button>
-            <SecondaryLink color="textSecondary" onClick={() => history.push('/restore')}>Restore password</SecondaryLink>
-        </Form>
+            <Button color="primary" type="submit">Login</Button>
+            <SecondaryLink color="textSecondary" onClick={redirectToRestore}>Restore password</SecondaryLink>
+        </Form>}
+        {state.authenticating && <CircularProgress size={50}/>}
     </FullScreenCentered>;
 };
 
 const connector = connect(
-    (state: AppState) => ({
-        loginStatus: state.authentication.statusMessage
-    }),
+    undefined,
     {
-        onLogin: (email: string, password: string) => login({
-            email, password
-        })
+        loggedIn: () => loggedIn()
     }
 );
 
 export const Login = connector(LoginView);
-

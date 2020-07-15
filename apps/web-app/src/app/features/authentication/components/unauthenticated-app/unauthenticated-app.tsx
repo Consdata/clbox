@@ -8,11 +8,11 @@ import {RestorePassword} from '../restore-password/restore-password';
 
 export const UnauthenticatedAppView = ({authenticated}: ViewProps) => <div>
     {authenticated === undefined && <LoginWait/>}
-    {authenticated === true && <Redirect to="/"/>}
+    {authenticated === true && <Redirect to='/'/>}
     {authenticated === false && <Switch>
-        <Route path="/login" component={Login}/>
-        <Route path="/restore" component={RestorePassword}/>
-        <Redirect to="/login"/>
+        <Route path='/login' component={Login}/>
+        <Route path='/reset' component={RestorePassword}/>
+        <Redirect to='/login'/>
     </Switch>}
 </div>;
 
