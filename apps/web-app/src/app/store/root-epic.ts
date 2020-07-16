@@ -1,8 +1,10 @@
 import {combineEpics} from 'redux-observable';
 import {authenticationEpic} from '../features/authentication/state/authentication.epic';
-import {fetchTeamsEpic} from '../features/team/state/fetch-teams.epic';
+import {inboxEpic} from '../features/inbox/state/inbox.epic';
+import {teamEpic} from '../features/team/state/team.epic';
 
 export const rootEpic = combineEpics(
     authenticationEpic,
-    fetchTeamsEpic
+    teamEpic,
+    inboxEpic
 );

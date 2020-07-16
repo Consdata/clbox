@@ -1,14 +1,22 @@
 import {Epic} from 'redux-observable';
-import {delay, map} from 'rxjs/operators';
+import {from} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {AppState} from '../../../state/app-state';
 import {loggedIn} from '../../authentication/state/login/logged-in.action';
+import {firebaseApp} from '../../firebase/firebase.app';
 import {teamsFetched} from './teams-fetched';
 
-export const fetchTeamsEpic: Epic<any, any, AppState> = (action$, state$) => action$
-    .ofType(loggedIn.type)
-    .pipe(
-        delay(1000),
-        map(_ => teamsFetched({
-            teams: [{id: 'a', name: 'Team'}]
-        }))
-    );
+const userCollection = firebaseApp.firestore().collection(`user`);
+export const fetchTeamsEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = (action$, state$) => {
+    return action$
+        .ofType(loggedIn.type)
+        .pipe(
+            switchMap(({payload}) => from(userCollection.doc(payload.email).get())),
+            map(teams => Object.keys(teams.data().teams)),
+            map(teams => teams.map(team => ({
+                id: team,
+                name: team
+            }))),
+            map(teams => teamsFetched({teams}))
+        );
+};

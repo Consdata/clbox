@@ -1,4 +1,3 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
 import {StylesProvider} from '@material-ui/core/styles';
 import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
@@ -11,12 +10,10 @@ const AppWrapperView = ({authenticated, bootstrapped}: ViewProps) => {
     useEffect(() => {
         bootstrapped()
     }, []);
-    return <CssBaseline>
-        <StylesProvider injectFirst>
-            {authenticated === true && <AuthenticatedApp/>}
-            {authenticated !== true && <UnauthenticatedApp/>}
-        </StylesProvider>
-    </CssBaseline>;
+    return <StylesProvider injectFirst>
+        {authenticated === true && <AuthenticatedApp/>}
+        {authenticated !== true && <UnauthenticatedApp/>}
+    </StylesProvider>;
 }
 
 interface ViewProps extends ConnectedProps<typeof connector> {

@@ -13,7 +13,7 @@ export const initAuthenticationOnAppBootstrapEpic: Epic<any, any, AppState> = (a
         first(),
         switchMap(_ => new Observable(subscriber =>
             firebaseApp.auth().onAuthStateChanged(
-                state => subscriber.next(state ? loggedIn() : loggedOut())
+                state => subscriber.next(state ? loggedIn({email: state.email}) : loggedOut())
             )
         ))
     );

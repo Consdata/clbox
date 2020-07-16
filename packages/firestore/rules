@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function isAuthentiacted(req) {
+    	return request.auth != null
+    }
+    function authEmail(req) {
+    	return request.auth.token.email
+    }
+
+    function getUser( user) {
+    	return get(/databases/$(database)/documents/user/$(user)).data
+    }
+    function getTeamUser(team, user) {
+    	return get(/databases/$(database)/documents/team/$(team)/user/$(user)).data
+    }
+
+    // read user info for logged user
+    match /user/{user} {
+    	allow read: if isAuthentiacted(request) && user == authEmail(request)
+    }
+    // read team info for team members
+  	match /team/{team} {
+    	allow read: if isAuthentiacted(request) && getUser(authEmail(request)).teams[team] == true
+    }
+    // read team user info for logged user
+    match /team/{team}/user/{user} {
+    	allow read: if isAuthentiacted(request) && user == authEmail(request)
+    }
+    // read team user info user chapter leader
+    match /team/{team}/user/{user} {
+    	allow read: if isAuthentiacted(request) && getTeamUser(team, user).chapterLeader == authEmail(request)
+    }
+    // read&write user inbox
+    match /team/{team}/inbox/{user}/{document=**} {
+    	allow read, write: if isAuthentiacted(request) && user == authEmail(request)
+    }
+    // default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

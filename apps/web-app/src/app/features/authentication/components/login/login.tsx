@@ -7,7 +7,6 @@ import {RouteComponentProps} from 'react-router';
 import styled from 'styled-components';
 import {firebaseApp} from '../../../firebase/firebase.app';
 import {FullScreenCentered} from '../../../layout/full-screen-centered';
-import {loggedIn} from '../../state/login/logged-in.action';
 
 const Form = styled.form`
     display: flex;
@@ -33,7 +32,7 @@ const ErrorMessage = styled.div`
     color: red;
 `;
 
-const LoginView = ({loggedIn, history}: ConnectedProps<typeof connector> & RouteComponentProps) => {
+const LoginView = ({history}: ConnectedProps<typeof connector> & RouteComponentProps) => {
     const [state, setState] = useState({
         email: '',
         password: '',
@@ -51,7 +50,8 @@ const LoginView = ({loggedIn, history}: ConnectedProps<typeof connector> & Route
         event.preventDefault();
         setState({...state, authenticating: true});
         firebaseApp.auth().signInWithEmailAndPassword(state.email, state.password).then(
-            () => loggedIn(),
+            () => {
+            },
             error => setState({
                 ...state,
                 message: error.message,
@@ -85,9 +85,7 @@ const LoginView = ({loggedIn, history}: ConnectedProps<typeof connector> & Route
 
 const connector = connect(
     undefined,
-    {
-        loggedIn: () => loggedIn()
-    }
+    undefined
 );
 
 export const Login = connector(LoginView);

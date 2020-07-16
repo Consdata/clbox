@@ -7,5 +7,5 @@ import {loggedIn} from './logged-in.action';
 export const redirectAfterLogin: Epic<any, any, AppState> = (action$) => action$
     .ofType(loggedIn.type)
     .pipe(
-        map(_ => replace('/dashboard'))
+        map(_ => replace('/inbox'))
     );

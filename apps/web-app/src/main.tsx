@@ -1,3 +1,4 @@
+import CssBaseline from '@material-ui/core/CssBaseline';
 import {ConnectedRouter} from 'connected-react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -7,15 +8,16 @@ import {firebaseApp} from './app/features/firebase/firebase.app';
 import {FirebaseContext} from './app/features/firebase/firebase.context';
 import {browserHistory} from './app/platform/browser-history';
 import {store} from './app/store/store';
-import './style.scss';
 
 ReactDOM.render(
-    <FirebaseContext.Provider value={firebaseApp}>
-        <Provider store={store}>
-            <ConnectedRouter history={browserHistory}>
-                <AppWrapper/>
-            </ConnectedRouter>
-        </Provider>
-    </FirebaseContext.Provider>,
+    <CssBaseline>
+        <FirebaseContext.Provider value={firebaseApp}>
+            <Provider store={store}>
+                <ConnectedRouter history={browserHistory}>
+                    <AppWrapper/>
+                </ConnectedRouter>
+            </Provider>
+        </FirebaseContext.Provider>
+    </CssBaseline>,
     document.getElementById('clbox')
 );
