@@ -21,7 +21,7 @@ interface ViewProps extends ConnectedProps<typeof connector> {
 
 const connector = connect(
     (state: AppState) => ({
-        authenticated: state.authentication.authenticated
+        authenticated: state.authentication.authenticated,
     }),
     {
         bootstrapped: () => appBootstrap()

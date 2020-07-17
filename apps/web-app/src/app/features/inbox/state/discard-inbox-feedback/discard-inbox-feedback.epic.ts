@@ -1,16 +1,23 @@
 import {Epic} from 'redux-observable';
-import {EMPTY, of} from 'rxjs';
-import {delay, switchMap, tap} from 'rxjs/operators';
+import {EMPTY, from, of} from 'rxjs';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {AppState} from '../../../../state/app-state';
+import {firebaseApp} from '../../../firebase/firebase.app';
 import {restoreInboxFeedback} from '../restore-inbox-feedback/restore-inbox-feedback.action';
 import {discardInboxFeedback} from './discard-inbox-feedback.action';
 
 export const discardInboxFeedbackEpic: Epic<ReturnType<typeof discardInboxFeedback>, any, AppState> = (action$, state$) => action$
     .ofType(discardInboxFeedback.type)
     .pipe(
-        tap(action => console.log(action)),
-        delay(5000),
-        switchMap(
-            action => action.payload.message.from === 'jadams@usa.com' ? of(restoreInboxFeedback({message: action.payload.message})) : EMPTY
+        withLatestFrom(state$),
+        switchMap(([{payload}, state]) => from(
+            firebaseApp.firestore()
+                .collection(`team/${state.team.current.id}/inbox/${state.authentication.email}/message`)
+                .doc(payload.message.id)
+                .delete()
+            ).pipe(
+            map(_ => EMPTY),
+            catchError(error => of(restoreInboxFeedback({message: payload.message})))
+            )
         )
     );
