@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "predeploy": "yarn build:web-app",
     "public": "dist/apps/web-app/",
     "ignore": [
       "firebase.json",
@@ -12,5 +13,12 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "functions": {
+    "predeploy": "yarn build:functions",
+    "source": "dist/apps/functions"
+  },
+  "firestore": {
+    "rules": "packages/firestore/firestore.rules"
   }
 }
