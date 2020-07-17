@@ -1,6 +1,6 @@
 import {Epic} from 'redux-observable';
 import {EMPTY, from, of} from 'rxjs';
-import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, switchMap, withLatestFrom} from 'rxjs/operators';
 import {AppState} from '../../../../state/app-state';
 import {firebaseApp} from '../../../firebase/firebase.app';
 import {restoreInboxFeedback} from '../restore-inbox-feedback/restore-inbox-feedback.action';
@@ -16,7 +16,7 @@ export const discardInboxFeedbackEpic: Epic<ReturnType<typeof discardInboxFeedba
                 .doc(payload.message.id)
                 .delete()
             ).pipe(
-            map(_ => EMPTY),
+            switchMap(_ => EMPTY),
             catchError(error => of(restoreInboxFeedback({message: payload.message})))
             )
         )
