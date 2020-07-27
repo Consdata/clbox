@@ -15,7 +15,6 @@ export const fetchInboxEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = 
   .pipe(
     filter(([_, state]) => state.team?.current?.id !== undefined),
     distinct(([action, state]) => `${action.payload.email}/${state.team.current.id}`),
-    tap(([action, state]) => console.log({action, state})),
     switchMap(([action, state]) => new Observable<firebase.firestore.QuerySnapshot>(subscriber => {
       const inboxCollection = firestore.collection(`team/${state.team.current.id}/inbox/${action.payload.email}/message`);
       inboxCollection.onSnapshot(subscriber);

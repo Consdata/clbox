@@ -28,10 +28,10 @@ const UserFilter = styled(Select)`
 const InboxView = ({messages, onDiscard, users}: ViewProps) => {
     const [filter, setFilter] = useState('all');
     return <View>
-        {!messages && <CircularProgress size={50}/>}
         {users?.length > 0 && <UserFilter value={filter} onChange={change => setFilter(change.target.value as string)}>
-            {users.map(user => <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>)}
+          {users.map(user => <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>)}
         </UserFilter>}
+        {!messages && <CircularProgress size={50}/>}
         {messages && messages.filter(message => message.state === InboxMessageState.Pending)
             .filter(message => filter === 'all' || filter === message.for)
             .map(message => <InboxItem key={message.id}>
