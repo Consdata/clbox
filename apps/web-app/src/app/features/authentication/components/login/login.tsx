@@ -64,6 +64,7 @@ const LoginView = ({history}: ConnectedProps<typeof connector> & RouteComponentP
         {!state.authenticating && <Form onSubmit={ev => submit(ev)}>
             <FullWithTextField label="Email"
                                id="email"
+                               autoComplete="username"
                                value={state.email}
                                onChange={handleChange}
             />
