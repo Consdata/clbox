@@ -10,10 +10,10 @@ firebase.initializeApp();
 
 const region = functions.region('europe-west3');
 const functionBuilder: FunctionBuilder = region
-    .runWith({
-        maxInstances: 1
-    });
+  .runWith({
+    maxInstances: 1
+  });
 
 export const awakeHandler = awakeHandlerFactory(functionBuilder);
-export const kudosHandler = kudosHandlerFactory(functionBuilder, functions.config(), new PubSub());
+export const kudosHandler = kudosHandlerFactory(functionBuilder.runWith({memory: '512MB'}), functions.config(), new PubSub());
 export const sendFeedback = sendFeedbackFactory(functionBuilder, functions.config(), firebase);
