@@ -54,6 +54,9 @@ export const sendFeedbackFactory = (
       const fromUser: SlackUserProfile = usersIndex[payload.user]?.profile;
       const forUser: SlackUserProfile = usersIndex[payload.mention]?.profile;
       if (!forUser) {
+        console.log(JSON.stringify({
+          msg: `Can't find user`, payload
+        }));
         await sendSlackMessage(slackHttpHeaders, `@${payload.user}`, `User mentioned in feedback (${payload.mention}) not found.`);
       }
 
@@ -63,6 +66,9 @@ export const sendFeedbackFactory = (
         const inboxCollection = firebase.firestore().collection(`team/${payload.team}/inbox/${chapterLeader}/message`);
         await inboxCollection.add(inboxMessage(forUser, fromUser, payload));
       } else {
+        console.log(JSON.stringify({
+          msg: `Can't find user chapter leader`, payload, forUser
+        }));
         await sendSlackMessage(slackHttpHeaders, `@${payload.user}`, `User mentioned in feedback (${payload.mention}) has no chapter leader.`);
       }
     }
