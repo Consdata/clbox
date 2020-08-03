@@ -1,6 +1,6 @@
-import * as rp from 'request-promise';
 import {PendingKudosMessage} from './pending-kudos-message';
 import {SlackUser} from './slack-user';
+import { fetch as nodeFetch} from 'node-fetch';
 
 import {SlackUserIndex} from './slack-user-index';
 import {SlackUserProfile} from './slack-user-profile';
@@ -10,11 +10,13 @@ export const sendFeedbackFactory = (
     config: import('firebase-functions').config.Config,
     firebase: typeof import('firebase-admin')) => {
     const slackBotToken = config.slack.bottoken;
-    const usersIndexPromise: Promise<SlackUserIndex> = rp({
-        uri: `https://slack.com/api/users.list?token=${slackBotToken}`,
-        transform: response => response.members,
-        json: true
-    }).then(
+    const usersIndexPromise: Promise<SlackUserIndex> = nodeFetch(`https://slack.com/api/users.list`, {
+        headers: {
+          Authorization: `Bearer ${slackBotToken}`
+        }
+    })
+      .then(res => res.json())
+      .then(
         (users: SlackUser[]) => users.reduce((index, user) => ({
                 ...index,
                 [user.name]: user
@@ -42,7 +44,7 @@ export const sendFeedbackFactory = (
                     message: payload.feedback
                 });
             } else {
-                // TODO: what now?!
+              // TODO: what now?!
             }
         }
     );

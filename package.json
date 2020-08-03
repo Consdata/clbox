@@ -39,6 +39,7 @@
     "firebase": "^7.16.0",
     "firebase-admin": "^9.0.0",
     "firebase-functions": "^3.8.0",
+    "node-fetch": "2.6.0",
     "raw-body": "^2.4.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -47,8 +48,6 @@
     "react-router-dom": "5.2.0",
     "redux": "4.0.5",
     "redux-observable": "^1.2.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5",
     "rxjs": "^6.6.0",
     "styled-components": "5.1.0",
     "tsscmp": "^1.0.6"

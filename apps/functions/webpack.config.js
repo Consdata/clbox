@@ -21,9 +21,8 @@ module.exports = (config, context) => {
                         "tslib": "",
                         "firebase-functions": "",
                         "firebase-admin": "",
-                        "request-promise": "",
                         "tsscmp": "",
-                        "request": ""
+                        "node-fetch": ""
                     },
                     "engines": {
                         "node": "10"
