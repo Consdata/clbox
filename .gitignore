@@ -36,6 +36,7 @@ testem.log
 /typings
 .local.env
 .firebase
+tools/users-sync/users.ts
 
 # System Files
 .DS_Store
