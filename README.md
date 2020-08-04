@@ -1,3 +1,5 @@
+Moved to: https://github.com/Consdata/clbox
+
 ### Setting up slack signing secret and bot token
 
 ```
