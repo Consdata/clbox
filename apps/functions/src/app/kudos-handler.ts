@@ -25,7 +25,7 @@ export const kudosHandlerFactory = (
             const mention = mentions[0].substr(1);
             const feedback = slashCommand.text.substr(mention.length + 2);
 
-            pubsub.topic('pending-slack-notifications').publish(Buffer.from(JSON.stringify(<PendingKudosMessage>{
+            await pubsub.topic('pending-slack-notifications').publish(Buffer.from(JSON.stringify(<PendingKudosMessage>{
                 mention, feedback, user: slashCommand.user_name, team: slashCommand.team_domain
             })));
 

@@ -33,7 +33,7 @@ export const notificationAfterFeedbackFactory = (
             author_name: message.fromName,
             title: `Feedback for ${message.forName}`,
             text: message.message,
-            title_link: `https://clbox-491b3.web.app/`,
+            title_link: config.webapp.url,
             fallback: `${message.forName}: ${message.message}\nby ${message.fromName}`
           }
         ]
