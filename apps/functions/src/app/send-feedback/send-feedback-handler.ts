@@ -1,9 +1,9 @@
 import * as nodeFetch from 'node-fetch';
-import {PendingKudosMessage} from './pending-kudos-message';
-import {SlackUser} from './slack-user';
+import {PendingKudosMessage} from '../pending-kudos-message';
+import {SlackUser} from '../slack-user';
 
-import {SlackUserIndex} from './slack-user-index';
-import {SlackUserProfile} from './slack-user-profile';
+import {SlackUserIndex} from '../slack-user-index';
+import {SlackUserProfile} from '../slack-user-profile';
 
 function now() {
   return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');

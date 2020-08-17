@@ -2,18 +2,18 @@ import {PubSub} from '@google-cloud/pubsub';
 import * as firebase from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {FunctionBuilder} from 'firebase-functions';
-import {awakeHandlerFactory} from './app/awake-handler';
-import {kudosHandlerFactory} from './app/kudos-handler';
-import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback';
-import {sendFeedbackFactory} from './app/send-feedback';
+import {awakeHandlerFactory} from './app/awake/awake-handler';
+import {kudosHandlerFactory} from './app/kudos/kudos-handler';
+import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback/notyfication-after-feedback-handler';
+import {sendFeedbackFactory} from './app/send-feedback/send-feedback-handler';
 
 firebase.initializeApp();
 
 const region = functions.region('europe-west3');
 const functionBuilder: () => FunctionBuilder = () => region
-  .runWith({
-    maxInstances: 5
-  });
+    .runWith({
+        maxInstances: 5
+    });
 
 export const awakeHandler = awakeHandlerFactory(functionBuilder());
 export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase);
