@@ -5,8 +5,8 @@ import {logoutEpic} from './logout/logout.epic';
 import {redirectAfterLogout} from './logout/redirect-after-logout.epic';
 
 export const authenticationEpic = combineEpics(
-    initAuthenticationOnAppBootstrapEpic,
-    logoutEpic,
-    redirectAfterLogin,
-    redirectAfterLogout
+  initAuthenticationOnAppBootstrapEpic,
+  logoutEpic,
+  redirectAfterLogin,
+  redirectAfterLogout
 );

@@ -35,6 +35,10 @@ service cloud.firestore {
     match /team/{team}/inbox/{user}/{document=**} {
     	allow read, write: if isAuthentiacted(request) && user == authEmail(request)
     }
+    // read team stats for logged user
+  	match /team/{team}/stats/{day} {
+    	allow read: if isAuthentiacted(request) && getUser(authEmail(request)).teams[team] == true
+    }
     // default deny
     match /{document=**} {
       allow read, write: if false;

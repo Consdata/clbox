@@ -28,6 +28,7 @@ const NavbarView = ({onLogout}: ConnectedProps<typeof connector>) => (
             <SelectTeam></SelectTeam>
             <MenuSpacer />
             <ActionButton color="inherit" component={Link} to="/inbox">Inbox</ActionButton>
+            <ActionButton color="inherit" component={Link} to="/stats">Stats</ActionButton>
             {/*<ActionButton color="inherit" component={Link} to="/dashboard">Dashboard</ActionButton>*/}
             {/*<ActionButton color="inherit" component={Link} to="/chapter">Chapter</ActionButton>*/}
             {/*<ActionButton color="inherit" component={Link} to="/mine">Ty</ActionButton>*/}
