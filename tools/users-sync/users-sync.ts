@@ -34,15 +34,19 @@ const chapterLeaderMap = users.users
 (async function () {
   console.log(`Update users with chapter link`);
   await updateCollection(`team/${team}/user/`, userMap, user => ({
-    chapterLeader: userMap[user].chapterLeader
-  }));
+      chapterLeader: userMap[user].chapterLeader
+    }),
+    true
+  );
 
   console.log(`Update system users`);
   await updateCollection(`user/`, chapterLeaderMap, user => ({
-    teams: {
-      [team]: true
-    }
-  }));
+      teams: {
+        [team]: true
+      }
+    }),
+    false
+  );
 })();
 
 
@@ -50,7 +54,7 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
-async function updateCollection(collection, users, updateFn: (user) => any) {
+async function updateCollection(collection, users, updateFn: (user) => any, removeUnknown: boolean) {
   const userCollection = firebase.firestore().collection(collection);
   const existingUsers = await userCollection.get();
   const usersToSync = Object.keys(users).length;
@@ -61,7 +65,7 @@ async function updateCollection(collection, users, updateFn: (user) => any) {
         userCollection.doc(existingUser.id).update(updateFn(existingUser.id));
       }
       delete users[existingUser.id];
-    } else {
+    } else if (removeUnknown) {
       console.log(`  remove user ${existingUser.id}`);
       userCollection.doc(existingUser.id).delete();
     }
