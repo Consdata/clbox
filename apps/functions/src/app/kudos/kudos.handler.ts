@@ -1,6 +1,6 @@
-import {checkSlackSignature} from '../check-slack-signature';
+import {checkSlackSignature} from '../slack/check-slack-signature';
 import {PendingKudosMessage} from '../pending-kudos-message';
-import {SlashCommandRequest} from '../slash-command-request';
+import {SlashCommandRequest} from '../slack/slash-command-request';
 
 export const kudosHandlerFactory = (
     functions: import('firebase-functions').FunctionBuilder,

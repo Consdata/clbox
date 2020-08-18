@@ -9,6 +9,20 @@ import {FirebaseContext} from './app/features/firebase/firebase.context';
 import {browserHistory} from './app/platform/browser-history';
 import {store} from './app/store/store';
 
+(async () => {
+    const firestore = firebaseApp.firestore();
+    const query = firestore.collection('invitation').where(
+        `domain."${'consdata.com'}"`,
+        "==",
+        true
+    );
+    const result = await query.get();
+    console.log(result);
+    console.log(result.empty);
+    console.log(result.docs);
+    window.firestore = firestore;
+})();
+
 ReactDOM.render(
     <CssBaseline>
         <FirebaseContext.Provider value={firebaseApp}>
