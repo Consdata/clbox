@@ -12,10 +12,10 @@ firebase.initializeApp();
 
 const region = functions.region('europe-west3');
 const functionBuilder: () => FunctionBuilder = () => region
-    .runWith({
-        maxInstances: 5,
-        memory: '512MB'
-    });
+  .runWith({
+    maxInstances: 5,
+    memory: '512MB'
+  });
 
 export const awakeHandler = awakeHandlerFactory(functionBuilder());
 export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase);

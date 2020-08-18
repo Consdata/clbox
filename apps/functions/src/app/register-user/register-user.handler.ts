@@ -2,8 +2,19 @@ import {RegisterUserRequest} from './register-user.request';
 
 const emailRegex = /^[a-zA-Z0-9._-]+@(?<domain>[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})$/i;
 
-export const registerUserFactory = (functions: import('firebase-functions').FunctionBuilder, firebase: typeof import('firebase-admin')) =>
-  functions.https.onRequest(async (request, response) => {
+export const registerUserFactory = (
+  functions: import('firebase-functions').FunctionBuilder,
+  firebase: typeof import('firebase-admin')
+) => {
+  async function tryToFindUserByEmail(email: string) {
+    try {
+      return await firebase.auth().getUserByEmail(email);
+    } catch {
+      return undefined;
+    }
+  }
+
+  return functions.https.onRequest(async (request, response) => {
     console.info(`Request for user registration (${JSON.stringify(request.body)})`);
 
     if (request.method !== 'POST') {
@@ -27,9 +38,19 @@ export const registerUserFactory = (functions: import('firebase-functions').Func
         .status(400)
         .send({status: 'bad'});
     } else {
-      // TODO: create user
+      const existingUser = await tryToFindUserByEmail(registerRequest.email);
+      if (!existingUser) {
+        console.info(`User created for email: ${registerRequest.email}`);
+        await firebase.auth().createUser({
+          email: registerRequest.email,
+          emailVerified: false
+        });
+      } else {
+        console.info(`User already exists (${registerRequest.email})`);
+      }
       return response.contentType('json')
         .status(200)
         .send({status: 'ok'})
     }
   });
+};
