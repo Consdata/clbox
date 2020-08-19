@@ -84,7 +84,7 @@
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-cypress": "2.10.3",
     "eslint-plugin-import": "2.21.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-jsx-a11y": "6.3.1",
     "eslint-plugin-react": "7.20.6",
     "eslint-plugin-react-hooks": "4.0.4",
     "generate-package-json-webpack-plugin": "^1.1.2",
