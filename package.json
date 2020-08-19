@@ -75,7 +75,7 @@
     "@types/react-router-dom": "5.1.5",
     "@types/styled-components": "5.1.2",
     "@typescript-eslint/eslint-plugin": "2.19.2",
-    "@typescript-eslint/parser": "2.19.2",
+    "@typescript-eslint/parser": "2.34.0",
     "babel-jest": "25.1.0",
     "babel-plugin-styled-components": "1.10.7",
     "cypress": "4.1.0",
