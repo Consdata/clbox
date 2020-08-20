@@ -1939,20 +1939,6 @@
     yargs "^11.0.0"
     yargs-parser "10.0.0"
 
-"@nrwl/cypress@10.0.12":
-  version "10.0.12"
-  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.0.12.tgz#8056a0cc35c1bd0ea9f72ffce1457c7868088170"
-  integrity sha512-ko+VuMATITg6mtAl3dgiaZH+PTp7f1kdO10dJO561jZkWkMYraleqlec8nBI6S9KHHn1WjfNqEZSrBUSgnGwtA==
-  dependencies:
-    "@angular-devkit/architect" "~0.1000.0"
-    "@angular-devkit/core" "~10.0.0"
-    "@cypress/webpack-preprocessor" "~4.1.2"
-    fork-ts-checker-webpack-plugin "^3.1.1"
-    tree-kill "1.2.2"
-    ts-loader "^5.3.1"
-    tsconfig-paths-webpack-plugin "3.2.0"
-    webpack-node-externals "1.7.2"
-
 "@nrwl/cypress@10.0.13":
   version "10.0.13"
   resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.0.13.tgz#c136a484e7c33e98e0e2aa0ccb7939a0935ab114"
@@ -1974,15 +1960,6 @@
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.19.2"
 
-"@nrwl/jest@10.0.12":
-  version "10.0.12"
-  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-10.0.12.tgz#bbf01be829f4d735a050a255c128b5cf04f9b0b9"
-  integrity sha512-7dz9s7Bt1V+NR4vPYfTLpq5p+3D5mxWyaWt2cqHLZCBLep0V0LiMi+OrgHt9Ryr2r4yzrQP8eJK9a65E3ejgfA==
-  dependencies:
-    "@angular-devkit/architect" "~0.1000.0"
-    "@angular-devkit/core" "~10.0.0"
-    "@angular-devkit/schematics" "~10.0.0"
-
 "@nrwl/jest@10.0.13":
   version "10.0.13"
   resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-10.0.13.tgz#873ab3456ac2a14e274e79414b0ed3745ae2356c"
@@ -1991,13 +1968,6 @@
     "@angular-devkit/architect" "~0.1000.0"
     "@angular-devkit/core" "~10.0.0"
     "@angular-devkit/schematics" "~10.0.0"
-
-"@nrwl/linter@10.0.12":
-  version "10.0.12"
-  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-10.0.12.tgz#58b746832009d7e9ee7c00926abd6489aa83e263"
-  integrity sha512-vZ+Jv+TfLOCUQFJmyYN8i7I/dqZagnrdyt5iHThlrrRRCF8GTBEgzHep1u/KTZYT0YkYswyD4rCHbPfhBUnHKQ==
-  dependencies:
-    "@angular-devkit/architect" "~0.1000.0"
 
 "@nrwl/linter@10.0.13":
   version "10.0.13"
@@ -2030,17 +2000,17 @@
     webpack-merge "4.2.1"
     webpack-node-externals "1.7.2"
 
-"@nrwl/react@10.0.12":
-  version "10.0.12"
-  resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-10.0.12.tgz#1804fa5a59ec966d80c16fab4da07db129870173"
-  integrity sha512-hRlmDzX434eI0/NE0RzzPHsmaqV6w+RHTw4kfb+39SrPcqQJfrKxkmVUzpgWxZII9z4+nUJeoOViM/rz/geTdw==
+"@nrwl/react@10.0.13":
+  version "10.0.13"
+  resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-10.0.13.tgz#5dab5530ce6381d15e37a221ded857b07b052fa3"
+  integrity sha512-IqrP3u7BPnzPpg6yqGPOhY11ghsDLtKLkRtzstdQvcmJVlY64IIkndtI4DWdAqyNlrcADMHcCQe1v0gKBP03fA==
   dependencies:
     "@angular-devkit/schematics" "~10.0.0"
     "@babel/core" "7.9.6"
     "@babel/preset-react" "7.9.4"
-    "@nrwl/cypress" "10.0.12"
-    "@nrwl/jest" "10.0.12"
-    "@nrwl/web" "10.0.12"
+    "@nrwl/cypress" "10.0.13"
+    "@nrwl/jest" "10.0.13"
+    "@nrwl/web" "10.0.13"
     "@svgr/webpack" "^5.2.0"
     confusing-browser-globals "^1.0.9"
     eslint-plugin-import "^2.20.1"
@@ -2060,95 +2030,6 @@
     inquirer "^6.3.1"
     minimist "^1.2.0"
     strip-json-comments "2.0.1"
-
-"@nrwl/web@10.0.12":
-  version "10.0.12"
-  resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-10.0.12.tgz#007ac56beee7e01ee9c1ea16beea0abdf77111c3"
-  integrity sha512-EjQXlXY5AGz/6OStzw/b6H4uXwcP8IDQNe75k93TpIPHQpMG9wE4Fi+DO7jAk3JS2EuCahj+PclKV22qVO9W9g==
-  dependencies:
-    "@angular-devkit/architect" "~0.1000.0"
-    "@angular-devkit/build-optimizer" "~0.1000.0"
-    "@angular-devkit/build-webpack" "~0.1000.0"
-    "@angular-devkit/core" "~10.0.0"
-    "@angular-devkit/schematics" "~10.0.0"
-    "@babel/core" "7.9.6"
-    "@babel/plugin-proposal-class-properties" "7.8.3"
-    "@babel/plugin-proposal-decorators" "7.8.3"
-    "@babel/plugin-transform-regenerator" "7.8.7"
-    "@babel/preset-env" "7.9.6"
-    "@babel/preset-typescript" "7.9.0"
-    "@nrwl/cypress" "10.0.12"
-    "@nrwl/jest" "10.0.12"
-    "@nrwl/linter" "10.0.12"
-    "@rollup/plugin-babel" "5.0.2"
-    "@rollup/plugin-commonjs" "11.0.2"
-    "@rollup/plugin-image" "2.0.4"
-    "@rollup/plugin-node-resolve" "7.1.1"
-    ajv "6.10.2"
-    autoprefixer "9.7.4"
-    babel-loader "8.1.0"
-    babel-plugin-const-enum "^1.0.1"
-    babel-plugin-macros "^2.8.0"
-    babel-plugin-transform-async-to-promises "^0.8.15"
-    browserslist "4.8.7"
-    cacache "12.0.2"
-    caniuse-lite "^1.0.30001030"
-    circular-dependency-plugin "5.2.0"
-    clean-css "4.2.1"
-    copy-webpack-plugin "5.1.1"
-    core-js "^3.6.5"
-    css-loader "3.4.2"
-    file-loader "4.2.0"
-    find-cache-dir "3.0.0"
-    fork-ts-checker-webpack-plugin "^3.1.1"
-    glob "7.1.4"
-    identity-obj-proxy "3.0.0"
-    jest-worker "25.1.0"
-    karma-source-map-support "1.4.0"
-    less "3.11.1"
-    less-loader "5.0.0"
-    license-webpack-plugin "2.1.2"
-    loader-utils "1.2.3"
-    mini-css-extract-plugin "0.8.0"
-    minimatch "3.0.4"
-    open "6.4.0"
-    parse5 "4.0.0"
-    postcss "7.0.27"
-    postcss-import "12.0.1"
-    postcss-loader "3.0.0"
-    raw-loader "3.1.0"
-    regenerator-runtime "0.13.3"
-    rollup "1.31.1"
-    rollup-plugin-copy "^3.3.0"
-    rollup-plugin-filesize "^9.0.0"
-    rollup-plugin-local-resolve "^1.0.7"
-    rollup-plugin-peer-deps-external "^2.2.2"
-    rollup-plugin-postcss "^3.1.1"
-    rollup-plugin-typescript2 "^0.27.1"
-    rxjs "^6.5.4"
-    sass "1.22.9"
-    sass-loader "8.0.2"
-    semver "6.3.0"
-    source-map "0.7.3"
-    source-map-loader "0.2.4"
-    source-map-support "0.5.16"
-    speed-measure-webpack-plugin "1.3.1"
-    style-loader "1.0.0"
-    stylus "0.54.5"
-    stylus-loader "3.0.2"
-    terser "4.3.8"
-    terser-webpack-plugin "2.3.1"
-    tree-kill "1.2.2"
-    ts-loader "5.4.5"
-    tsconfig-paths-webpack-plugin "3.2.0"
-    webpack "4.42.0"
-    webpack-dev-middleware "3.7.0"
-    webpack-dev-server "3.9.0"
-    webpack-merge "4.2.1"
-    webpack-node-externals "1.7.2"
-    webpack-sources "1.4.3"
-    webpack-subresource-integrity "1.1.0-rc.5"
-    worker-plugin "3.2.0"
 
 "@nrwl/web@10.0.13":
   version "10.0.13"
