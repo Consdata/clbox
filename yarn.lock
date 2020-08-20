@@ -1953,6 +1953,20 @@
     tsconfig-paths-webpack-plugin "3.2.0"
     webpack-node-externals "1.7.2"
 
+"@nrwl/cypress@10.0.13":
+  version "10.0.13"
+  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-10.0.13.tgz#c136a484e7c33e98e0e2aa0ccb7939a0935ab114"
+  integrity sha512-nVpfRoiTLNQ6+Lvz26oM6fy3V0PY1W1QHENog50XRP7ATEjkLyfz0KgURHVaRxZMoc4ojY2sLMiEVkYeSLuJRQ==
+  dependencies:
+    "@angular-devkit/architect" "~0.1000.0"
+    "@angular-devkit/core" "~10.0.0"
+    "@cypress/webpack-preprocessor" "~4.1.2"
+    fork-ts-checker-webpack-plugin "^3.1.1"
+    tree-kill "1.2.2"
+    ts-loader "^5.3.1"
+    tsconfig-paths-webpack-plugin "3.2.0"
+    webpack-node-externals "1.7.2"
+
 "@nrwl/eslint-plugin-nx@10.0.12":
   version "10.0.12"
   resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-10.0.12.tgz#3a60666c9596110009f7c439239992271b15f8f8"
