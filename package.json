@@ -36,7 +36,7 @@
     "@reduxjs/toolkit": "1.4.0",
     "connected-react-router": "6.8.0",
     "document-register-element": "1.14.5",
-    "firebase": "^7.16.0",
+    "firebase": "^7.19.0",
     "firebase-admin": "^9.0.0",
     "firebase-functions": "^3.8.0",
     "node-fetch": "2.6.0",
