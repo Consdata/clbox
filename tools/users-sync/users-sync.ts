@@ -1,5 +1,5 @@
 const firebase = require('firebase-admin');
-const users = require('./users');
+const users = require('./users/users');
 
 const [, , ...args] = process.argv;
 const team = args[0];

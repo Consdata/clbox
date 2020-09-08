@@ -37,7 +37,7 @@ testem.log
 .local.env
 .firebase
 firebase-debug.log
-tools/users-sync/users.ts
+tools/users-sync/users
 
 # System Files
 .DS_Store

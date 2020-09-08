@@ -14,9 +14,6 @@ export const createUserFactory = (
     }
   }
 
-  async function handler(data) {
-  }
-
   return functions.https.onCall(async (data, context) => {
     console.info(`Request for user registration (${JSON.stringify(data)})`);
 
