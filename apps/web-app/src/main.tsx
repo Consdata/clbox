@@ -4,13 +4,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {AppWrapper} from './app/app-wrapper';
+import {firebaseAnalytics} from './app/features/firebase/firebase.analytics';
 import {firebaseApp} from './app/features/firebase/firebase.app';
 import {FirebaseContext} from './app/features/firebase/firebase.context';
 import {firebasePerformance} from './app/features/firebase/firebase.performance';
 import {browserHistory} from './app/platform/browser-history';
 import {store} from './app/store/store';
-
-firebasePerformance.trace('app#beforeRender');
 
 ReactDOM.render(
   <CssBaseline>
@@ -26,3 +25,4 @@ ReactDOM.render(
 );
 
 firebasePerformance.trace('app#afterRender');
+firebaseAnalytics.logEvent('app_bootstrap');
