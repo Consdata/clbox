@@ -7,8 +7,8 @@ export const notificationAfterFeedbackFactory = (
 ) => functions.firestore.document('team/{team}/inbox/{chapterLeader}/message/{messageId}').onCreate(
   async (change, context) => {
     const message = change.data();
-    const slackUser = await userProfile(context.params.chapterLeader, config.slack.bottokens);
-    await sendSlackMessage(config.slack.bottokens, {
+    const slackUser = await userProfile(context.params.chapterLeader, config.slack.bottoken);
+    await sendSlackMessage(config.slack.bottoken, {
       channel: `@${slackUser.name}`,
       text: `You have new feedback!`,
       attachments: [
