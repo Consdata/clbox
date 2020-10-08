@@ -87,7 +87,8 @@ async function updateCollection(collection, users, updateFn: (id, existingUser) 
   });
   Object.keys(users).forEach(user => {
     console.log(`  add user ${user}`);
-    userCollection.doc(user).set(updateFn(user))
+    const newUserDoc = updateFn(user, {});
+    userCollection.doc(user).set(newUserDoc)
   });
   console.log(` synced users: ${usersToSync}`);
 }
