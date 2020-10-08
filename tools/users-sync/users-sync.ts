@@ -42,7 +42,6 @@ const compareObjects = (a, b) => {
 (async function () {
   console.log(`Update users with chapter link`);
   await updateCollection(`team/${team}/user/`, userMap, (id, existingUser) => {
-      // TODO: init and rewrite old stats?
       if (!compareObjects(existingUser, userMap[id])) {
         return userMap[id];
       }
@@ -78,7 +77,7 @@ async function updateCollection(collection, users, updateFn: (id, existingUser) 
       const docUpdate = updateFn(existingUser.id, existingUser.data());
       if (docUpdate) {
         console.log(`doc update for user: ${existingUser.id}`);
-        userCollection.doc(existingUser.id).set(docUpdate);
+        userCollection.doc(existingUser.id).update(docUpdate);
       }
       delete users[existingUser.id];
     } else if (removeUnknown) {
