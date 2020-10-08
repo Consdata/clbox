@@ -30,21 +30,35 @@ const chapterLeaderMap = users.users
     }),
     {}
   );
+const compareObjects = (a, b) => {
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
+  if (aKeys.length !== bKeys.length) {
+    return false;
+  }
+  return aKeys.map(aKey => a[aKey] === b[aKey]).every(match => match);
+}
 
 (async function () {
   console.log(`Update users with chapter link`);
-  await updateCollection(`team/${team}/user/`, userMap, user => ({
-      chapterLeader: userMap[user].chapterLeader
-    }),
+  await updateCollection(`team/${team}/user/`, userMap, (id, existingUser) => {
+      if (!compareObjects(existingUser, userMap[id])) {
+        return userMap[id];
+      }
+    },
     true
   );
 
   console.log(`Update system users`);
-  await updateCollection(`user/`, chapterLeaderMap, user => ({
-      teams: {
-        [team]: true
+  await updateCollection(`user/`, chapterLeaderMap, (id, existingUser) => {
+      if (!existingUser.teams[team]) {
+        return {
+          teams: {
+            [team]: true
+          }
+        };
       }
-    }),
+    },
     false
   );
 })();
@@ -54,15 +68,16 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
-async function updateCollection(collection, users, updateFn: (user) => any, removeUnknown: boolean) {
+async function updateCollection(collection, users, updateFn: (id, existingUser) => any, removeUnknown: boolean) {
   const userCollection = firebase.firestore().collection(collection);
   const existingUsers = await userCollection.get();
   const usersToSync = Object.keys(users).length;
   existingUsers.forEach(existingUser => {
     if (users[existingUser.id]) {
-      if (existingUser.data().chapterLeader !== users[existingUser.id].chapterLeader) {
-        console.log(`  update user ${existingUser.id}`);
-        userCollection.doc(existingUser.id).update(updateFn(existingUser.id));
+      const docUpdate = updateFn(existingUser.id, existingUser.data());
+      if (docUpdate) {
+        console.log(`doc update for user: ${existingUser.id}`);
+        userCollection.doc(existingUser.id).set(docUpdate);
       }
       delete users[existingUser.id];
     } else if (removeUnknown) {
