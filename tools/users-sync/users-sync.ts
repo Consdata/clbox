@@ -68,6 +68,14 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+function isActive(user) {
+  const expire = user.expireDate;
+  if (!expire) {
+    return true;
+  }
+  return new Date().getTime() < new Date(expire).getTime();
+}
+
 async function updateCollection(collection, users, updateFn: (id, existingUser) => any, removeUnknown: boolean) {
   const userCollection = firebase.firestore().collection(collection);
   const existingUsers = await userCollection.get();
@@ -86,9 +94,13 @@ async function updateCollection(collection, users, updateFn: (id, existingUser) 
     }
   });
   Object.keys(users).forEach(user => {
-    console.log(`  add user ${user}`);
     const newUserDoc = updateFn(user, {});
-    userCollection.doc(user).set(newUserDoc)
+    if(isActive(newUserDoc)) {
+      console.log(`  add user ${user}`);
+      userCollection.doc(user).set(newUserDoc)
+    } else {
+      console.log(`  user ${user} already inactive!`)
+    }
   });
   console.log(` synced users: ${usersToSync}`);
 }
