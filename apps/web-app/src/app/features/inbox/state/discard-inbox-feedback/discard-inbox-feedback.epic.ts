@@ -14,7 +14,7 @@ export const discardInboxFeedbackEpic: Epic<ReturnType<typeof discardInboxFeedba
             firebaseApp.firestore()
                 .collection(`team/${state.team.current.id}/inbox/${state.authentication.email}/message`)
                 .doc(payload.message.id)
-                .delete()
+                .delete() // F5
             ).pipe(
             switchMap(_ => EMPTY),
             catchError(error => of(restoreInboxFeedback({message: payload.message})))

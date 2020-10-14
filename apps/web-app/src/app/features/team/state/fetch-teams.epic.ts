@@ -11,7 +11,7 @@ export const fetchTeamsEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = 
     return action$
         .ofType(loggedIn.type)
         .pipe(
-            switchMap(({payload}) => from(userCollection.doc(payload.email).get())),
+            switchMap(({payload}) => from(userCollection.doc(payload.email).get())), // F4
             map(teams => Object.keys(teams.data().teams)),
             map(teams => teams.map(team => ({
                 id: team,

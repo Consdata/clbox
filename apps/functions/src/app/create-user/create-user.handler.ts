@@ -14,7 +14,7 @@ export const createUserFactory = (
     }
   }
 
-  return functions.https.onCall(async (data, context) => {
+  return functions.https.onCall(async (data, context) => { // S5
     console.info(`Request for user registration (${JSON.stringify(data)})`);
 
     const registerRequest = data as CreateUserRequest;
@@ -22,7 +22,7 @@ export const createUserFactory = (
     const emailDomain = emailMatch[1];
 
     const invitations = firebase.firestore().collection('invitation');
-    const invitation = await invitations.where(
+    const invitation = await invitations.where( // S6
       new firebase.firestore.FieldPath('domain', emailDomain),
       '==',
       true
@@ -34,14 +34,14 @@ export const createUserFactory = (
         status: 'bad'
       };
     } else {
-      const existingUser = await tryToFindUserByEmail(registerRequest.email);
+      const existingUser = await tryToFindUserByEmail(registerRequest.email); // S7
       if (!existingUser) {
         console.info(`User created for email: ${registerRequest.email}`);
-        await firebase.auth().createUser({
+        await firebase.auth().createUser({ // S8
           email: registerRequest.email,
           emailVerified: false
         });
-        await firebase.firestore().collection('user').doc(registerRequest.email).set({
+        await firebase.firestore().collection('user').doc(registerRequest.email).set({ // S9
           teams: {
             [invitation.docs[0].id]: true
           }

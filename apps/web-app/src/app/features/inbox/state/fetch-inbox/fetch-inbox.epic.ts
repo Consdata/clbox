@@ -22,7 +22,7 @@ export const fetchInboxEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = 
   switchMap(([user, team]) => {
     if (team && user) {
       return new Observable<firebase.firestore.QuerySnapshot>(subscriber => {
-        const inboxCollection = firestore.collection(`team/${team}/inbox/${user}/message`);
+        const inboxCollection = firestore.collection(`team/${team}/inbox/${user}/message`); // F1
         inboxCollection.onSnapshot(subscriber);
       });
     } else {

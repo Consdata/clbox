@@ -22,7 +22,7 @@ export const fetchSentEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = (
   switchMap(([user, team]) => {
     if (team && user) {
       return new Observable<firebase.firestore.QuerySnapshot>(subscriber => {
-        const sentCollection = firestore.collection(`team/${team}/sent/${user}/message`);
+        const sentCollection = firestore.collection(`team/${team}/sent/${user}/message`); // F2
         sentCollection.onSnapshot(subscriber);
       });
     } else {

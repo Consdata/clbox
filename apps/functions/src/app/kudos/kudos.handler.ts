@@ -6,7 +6,7 @@ export const kudosHandlerFactory = (
     functions: import('firebase-functions').FunctionBuilder,
     config: import('firebase-functions').config.Config,
     pubsub: import('@google-cloud/pubsub').PubSub) =>
-    functions.https.onRequest(async (request, response) => {
+    functions.https.onRequest(async (request, response) => { // S19
         if (request.method !== 'POST') {
             response.status(405).send('Invalid request method (only POST allowed)');
         }

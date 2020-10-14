@@ -23,7 +23,7 @@ export const fetchStatsEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = 
     switchMap(([user, team]) => {
       if (user && team) {
         return new Observable<firebase.firestore.DocumentSnapshot>(subscriber => {
-          const monthStats = firestore.collection(`team/${team}/stats`).doc(currentMonth);
+          const monthStats = firestore.collection(`team/${team}/stats`).doc(currentMonth); // F3
           monthStats.onSnapshot(subscriber)
         });
       } else {

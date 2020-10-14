@@ -69,7 +69,7 @@ export const sendFeedbackFactory = (
       )
     );
 
-  return functions.pubsub.topic('pending-slack-notifications').onPublish(
+  return functions.pubsub.topic('pending-slack-notifications').onPublish( // S13
     async (topicMessage, context) => {
       const usersIndex = await usersIndexPromise;
       const payload: PendingKudosMessage = JSON.parse(Buffer.from(topicMessage.data, 'base64').toString());
@@ -88,14 +88,14 @@ export const sendFeedbackFactory = (
 
       const firestore = firebase.firestore();
       const userCollection = firestore.collection(`team/${payload.team}/user/`);
-      const chapterLeader = (await userCollection.doc(forUser.email).get())?.data()?.chapterLeader;
+      const chapterLeader = (await userCollection.doc(forUser.email).get())?.data()?.chapterLeader; // S14
 
       if (chapterLeader !== undefined) {
         await firestore.runTransaction(async trn => {
           const inboxDoc = firestore.collection(`team/${payload.team}/inbox/${chapterLeader}/message`).doc();
           const sentDoc = firestore.collection(`team/${payload.team}/sent/${fromUser.email}/message`).doc(inboxDoc.id);
-          trn.set(inboxDoc, message(forUser, fromUser, payload));
-          trn.set(sentDoc, message(forUser, fromUser, payload));
+          trn.set(inboxDoc, message(forUser, fromUser, payload)); // S15
+          trn.set(sentDoc, message(forUser, fromUser, payload)); // S16
         });
       } else {
         await failedToSendFeedback(
