@@ -30,9 +30,9 @@ const chapterLeaderMap = users.users
     }),
     {}
   );
-const compareObjects = (a, b) => {
-  const aKeys = Object.keys(a);
-  const bKeys = Object.keys(b);
+const compareObjects = (a, b, ignoreFields: string[] = []) => {
+  const aKeys = Object.keys(a).filter(key => ignoreFields.indexOf(key) < 0);
+  const bKeys = Object.keys(b).filter(key => ignoreFields.indexOf(key) < 0);
   if (aKeys.length !== bKeys.length) {
     return false;
   }
@@ -42,7 +42,7 @@ const compareObjects = (a, b) => {
 (async function () {
   console.log(`Update users with chapter link`);
   await updateCollection(`team/${team}/user/`, userMap, (id, existingUser) => {
-      if (!compareObjects(existingUser, userMap[id])) {
+      if (!compareObjects(existingUser, userMap[id], ['stats'])) {
         return userMap[id];
       }
     },
