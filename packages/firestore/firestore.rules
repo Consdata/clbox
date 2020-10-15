@@ -15,6 +15,10 @@ service cloud.firestore {
     	return get(/databases/$(database)/documents/team/$(team)/user/$(user)).data
     }
 
+    function getTeam(team) {
+      return get(/databases/$(database)/documents/team/$(team)).data
+    }
+
     // read user info for logged user
     match /user/{user} {
     	allow read: if isAuthentiacted(request) && user == authEmail(request)
@@ -42,6 +46,10 @@ service cloud.firestore {
     // read team stats for logged user
   	match /team/{team}/stats/{day} {
     	allow read: if isAuthentiacted(request) && getUser(authEmail(request)).teams[team] == true
+    }
+    // read team info for chapter leader
+  	match /team/{team}/user/{document=**} {
+    	allow read: if getTeam(team).teams.chapterLeader == authEmail(request)
     }
     // default deny
     match /{document=**} {

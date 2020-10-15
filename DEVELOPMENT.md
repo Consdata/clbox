@@ -40,7 +40,7 @@
 12. a. Open Cloud Firestore
 12. b. Add collection user
 12. c. For document use id matching test user email
-12. d. Add document field teams as map with value team id: (booealn) true
+12. d. Add document field teams as map with value team id: (boolean) true
 
 ## Create test user - chapter leader mapping
 

@@ -9,6 +9,7 @@ import {kudosHandlerFactory} from './app/kudos/kudos.handler';
 import {notificationAfterLeaderChangeFactory} from './app/notification-after-leader-change/notification-after-leader-change-factory';
 import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback/notyfication-after-feedback.handler';
 import {sendFeedbackFactory} from './app/send-feedback/send-feedback.handler';
+import {userFeedbackStatsFactory} from 'apps/functions/src/app/user-feedback-stats-factory';
 
 firebase.initializeApp();
 
@@ -24,5 +25,6 @@ export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.con
 export const notificationAfterFeedback = notificationAfterFeedbackFactory(functionBuilder(), functions.config());
 export const notificationAfterLeaderChange = notificationAfterLeaderChangeFactory(functionBuilder(), functions.config());
 export const feedbackStats = feedbackStatsFactory(functionBuilder(), firebase);
+export const userFeedbackStats = userFeedbackStatsFactory(functionBuilder(), firebase);
 export const createUser = createUserFactory(functionBuilder(), firebase);
 export const kudosHandler = kudosHandlerFactory(functionBuilder().runWith({memory: '512MB'}), functions.config(), new PubSub());
