@@ -32,7 +32,8 @@ const StatsView = ({stats}: ViewProps) => {
   </div>;
 };
 
-interface ViewProps extends ConnectedProps<typeof connector> {
+interface ViewProps extends ConnectedProps
+  <typeof connector> {
 }
 
 const connector = connect(
