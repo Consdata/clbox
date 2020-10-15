@@ -60,14 +60,21 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/web-app/tsconfig.app.json",
-              "apps/web-app/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/web-app/**/*"]
+            "lintFilePatterns": [
+              "apps/web-app/**/*.js",
+              "apps/web-app/**/*.jsx",
+              "apps/web-app/**/*.ts",
+              "apps/web-app/**/*.tsx",
+              "node_modules/@nrwl/react/typings/cssmodule.d.ts",
+              "node_modules/@nrwl/react/typings/image.d.ts",
+              "apps/web-app/**/*.spec.ts",
+              "apps/web-app/**/*.spec.tsx",
+              "apps/web-app/**/*.spec.js",
+              "apps/web-app/**/*.spec.jsx",
+              "apps/web-app/**/*.d.ts"
+            ]
           }
         },
         "test": {
@@ -98,11 +105,12 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": ["apps/web-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/web-app-e2e/**/*"]
+            "lintFilePatterns": [
+              "apps/web-app-e2e/src/**/*.ts",
+              "apps/web-app-e2e/src/**/*.js"
+            ]
           }
         }
       }
@@ -144,14 +152,13 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:lint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "apps/functions/tsconfig.app.json",
-              "apps/functions/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/functions/**/*"]
+            "lintFilePatterns": [
+              "apps/functions/**/*.ts",
+              "apps/functions/**/*.spec.ts",
+              "apps/functions/**/*.d.ts"
+            ]
           }
         },
         "test": {
