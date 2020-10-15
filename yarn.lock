@@ -6680,10 +6680,10 @@ gcs-resumable-upload@^3.1.0:
     pumpify "^2.0.0"
     stream-events "^1.0.4"
 
-generate-package-json-webpack-plugin@^1.1.2:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/generate-package-json-webpack-plugin/-/generate-package-json-webpack-plugin-1.2.0.tgz#644048966d858e52e94bdc70b1f597ab28d67f38"
-  integrity sha512-ISbuhuTsps2goVc7ZzUArjr2yxk2j72iLMqJvf+0+N8v9cHEznCHeaDmKXiOPGw+zNPAc/2hIZmotrvmcSn4wQ==
+generate-package-json-webpack-plugin@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/generate-package-json-webpack-plugin/-/generate-package-json-webpack-plugin-1.1.2.tgz#2d8ae7a40a0f5d8c300744eacdf6aef1fabcb269"
+  integrity sha512-m+Iv1uB2nIUTkSzg4NAwOoiG6rapT9hPXAw3FPRNGYQhXE+jC7nIt7WR9M0JH1y/54JX/dYmBx/lLwvra+20jg==
 
 generic-names@^2.0.1:
   version "2.0.1"
@@ -11347,7 +11347,7 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
-redux-observable@^1.2.0:
+redux-observable@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-1.2.0.tgz#ff51b6c6be2598e9b5e89fc36639186bb0e669c7"
   integrity sha512-yeR90RP2WzZzCxxnQPlh2uFzyfFLsfXu8ROh53jGDPXVqj71uNDMmvi/YKQkd9ofiVoO4OYb1snbowO49tCEMg==
