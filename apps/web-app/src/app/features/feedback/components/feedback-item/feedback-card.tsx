@@ -8,10 +8,14 @@ const StyledCard = styled(Card)`
     width: 100%;
 `;
 
+const Content = styled(Typography)`
+    white-space: pre-wrap;
+`;
+
 export const FeedbackCard = ({feedback, onDiscard}: ViewProps) => <StyledCard>
   <CardHeader title={feedback.forName} subheader={`by ${feedback.fromName} on ${feedback.date}`}/>
   <CardContent>
-    <Typography variant="body2">{feedback.message}</Typography>
+    <Content variant="body2">{feedback.message}</Content>
   </CardContent>
   {onDiscard && <CardActions>
     <Button size="small" color="secondary" onClick={onDiscard}>
