@@ -35,5 +35,5 @@ export const fetchInboxEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = 
       state: MessageState.Pending,
       ...doc.data()
     }))
-  })),
+  }))
 );
