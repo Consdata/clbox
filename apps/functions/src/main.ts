@@ -6,6 +6,7 @@ import {awakeHandlerFactory} from './app/awake/awake.handler';
 import {createUserFactory} from './app/create-user/create-user.handler';
 import {expireUserAccountsFactory} from './app/expire-user-accounts/expire-user-accounts-factory';
 import {feedbackStatsFactory} from './app/feedback-stats/feedback-stats-factory';
+import {getChapterStatsFactory} from './app/get-chapter-stats/get-chapter-stats-factory';
 import {kudosHandlerFactory} from './app/kudos/kudos.handler';
 import {notificationAfterLeaderChangeFactory} from './app/notification-after-leader-change/notification-after-leader-change-factory';
 import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback/notyfication-after-feedback.handler';
@@ -28,5 +29,6 @@ export const notificationAfterLeaderChange = notificationAfterLeaderChangeFactor
 export const feedbackStats = feedbackStatsFactory(functionBuilder(), firebase);
 export const userFeedbackStats = userFeedbackStatsFactory(functionBuilder(), firebase);
 export const createUser = createUserFactory(functionBuilder(), firebase);
-export const kudosHandler = kudosHandlerFactory(functionBuilder().runWith({memory: '512MB'}), functions.config(), new PubSub());
 export const expireUserAccounts = expireUserAccountsFactory(functionBuilder(), firebase);
+export const getChapterStats = getChapterStatsFactory(functionBuilder(), firebase);
+export const kudosHandler = kudosHandlerFactory(functionBuilder().runWith({memory: '512MB'}), functions.config(), new PubSub());
