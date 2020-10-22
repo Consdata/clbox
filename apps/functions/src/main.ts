@@ -5,12 +5,12 @@ import {FunctionBuilder} from 'firebase-functions';
 import {awakeHandlerFactory} from './app/awake/awake.handler';
 import {createUserFactory} from './app/create-user/create-user.handler';
 import {expireUserAccountsFactory} from './app/expire-user-accounts/expire-user-accounts-factory';
-import {feedbackStatsFactory} from './app/feedback-stats-factory';
+import {feedbackStatsFactory} from './app/feedback-stats/feedback-stats-factory';
 import {kudosHandlerFactory} from './app/kudos/kudos.handler';
 import {notificationAfterLeaderChangeFactory} from './app/notification-after-leader-change/notification-after-leader-change-factory';
 import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback/notyfication-after-feedback.handler';
 import {sendFeedbackFactory} from './app/send-feedback/send-feedback.handler';
-import {userFeedbackStatsFactory} from 'apps/functions/src/app/user-feedback-stats-factory';
+import {userFeedbackStatsFactory} from './app/user-feedback-stats/user-feedback-stats-factory';
 
 firebase.initializeApp();
 

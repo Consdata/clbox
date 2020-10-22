@@ -22,19 +22,29 @@
       users.filter(user => user.id !== `failed-to-deliver`)
         .map(async user => {
           const stats = {};
-          const messages = await user.collection('message').get();
-          messages.forEach(message => {
-            const date = message.data().date.substring(0, 10);
-            stats[date] = (stats[date] ?? 0) + 1;
-          });
-          await userCollection.doc(user.id).update({
-            stats: {
-              2020: { // quick and dirty
-                ...stats,
-                summary: Object.values(stats).reduce((sum: number, current: number) => sum + current, 0)
-              }
-            }
-          })
+          const userDoc = userCollection.doc(user.id);
+          if ((await userDoc.get()).exists) {
+            const messages = await user.collection('message').get();
+            messages.forEach(message => {
+              const date = message.data().date.substring(0, 10);
+              stats[date] = (stats[date] ?? 0) + 1;
+            });
+            await userDoc.update({
+              stats: 'deprecated'
+            })
+            await userDoc.collection('stats').doc('sent-feedbacks').set(
+              {
+                byYear: {
+                  2020: { // quick and dirty
+                    ...stats,
+                    summary: Object.values(stats).reduce((sum: number, current: number) => sum + current, 0)
+                  }
+                }
+              },
+              {
+                merge: true
+              });
+          }
         })
     );
   })();
