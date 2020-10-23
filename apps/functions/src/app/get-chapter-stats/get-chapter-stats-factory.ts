@@ -17,14 +17,25 @@ export const getChapterStatsFactory = (
     .collection(`/team/${data.team}/user`)
     .where('chapterLeader', '==', auth)
     .get();
-  return await Promise.all(users.docs.map(async user => {
-    const stats = await firestore
-      .collection(`/team/${data.team}/user/${user.id}/stats`)
+
+  return await Promise.all([
+    firestore
+      .collection(`/team/${data.team}/user/${auth}/stats`)
       .doc(data.statType)
-      .get();
-    return {
-      user: user.id,
-      stats: stats.data()
-    };
-  }));
+      .get()
+      .then(doc => ({
+        user: auth,
+        stats: doc.data()
+      })),
+    ...users.docs.map(async user => {
+      const stats = await firestore
+        .collection(`/team/${data.team}/user/${user.id}/stats`)
+        .doc(data.statType)
+        .get();
+      return {
+        user: user.id,
+        stats: stats.data()
+      };
+    })
+  ]);
 })
