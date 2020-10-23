@@ -1,6 +1,7 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import {connectRouter} from 'connected-react-router';
 import {authenticationReducer} from '../features/authentication/state/authentication.reducer';
+import {chapterStatsReducer} from '../features/chapter-stats/state/chapter-stats.reducer';
 import {inboxReducer} from '../features/inbox/state/inbox.reducer';
 import {sentReducer} from '../features/sent/state/sent.reducer';
 import {statsReducer} from '../features/stats/state/stats.reducer';
@@ -13,4 +14,5 @@ export const rootReducer = history => combineReducers({
   inbox: inboxReducer,
   sent: sentReducer,
   stats: statsReducer,
+  chapterStats: chapterStatsReducer
 });
