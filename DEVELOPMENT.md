@@ -40,11 +40,11 @@
     13. Open Cloud Firestore
     13. Add collection „user”
     13. For document id use your test user email (from pt. 8.)
-    13. Add document field of type map named „teams” with value team_name: (boolean) true
+    13. Add document field of type map named „teams” with value {team}: (boolean) true ({team} is the name of the Slack workspace)
 
 ## Create test user - chapter leader mapping
 
-14. Create collection team/{team}/user ({team} is the name of the Slack workspace)
+14. Create collection team/{team}/user
     14. Open Cloud Firestore
     14. For document id use matching test user email (from pt. 8.)
     14. Add document field chapterLeader as string with value of the chapter leader email
