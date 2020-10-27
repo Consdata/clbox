@@ -10,7 +10,7 @@
 ## Perquisitions
 
 1. Setup firebase account
-2. Install firebase cli and login
+2. [Install firebase cli and login](https://firebase.google.com/docs/cli#mac-linux-npm)
 3. Create firebase test/dev project
 
 ## Configure project for firebase
@@ -33,21 +33,21 @@
 ## Configure initial database layout
 
 12. Create collection for team
-12. a. Open Cloud Firestore
-12. b. Add collection team
-12. c. For document use id matching slack workspace id and leave empty document fields
+    12. Open Cloud Firestore
+    12. Add collection „team”
+    12. For document id use your slack workspace name and leave document fields empty
 13. Create users collection with team link
-12. a. Open Cloud Firestore
-12. b. Add collection user
-12. c. For document use id matching test user email
-12. d. Add document field teams as map with value team id: (boolean) true
+    13. Open Cloud Firestore
+    13. Add collection „user”
+    13. For document id use your test user email (from pt. 8.)
+    13. Add document field of type map named „teams” with value team_name: (boolean) true
 
 ## Create test user - chapter leader mapping
 
-13. Create collection team/{team}/user
-13. a. Open Cloud Firestore
-13. b. For document use id matching test user email
-13. c. Add document field chapterLeader as string with value of chapter leader email
+14. Create collection team/{team}/user ({team} is the name of the Slack workspace)
+    14. Open Cloud Firestore
+    14. For document id use matching test user email (from pt. 8.)
+    14. Add document field chapterLeader as string with value of the chapter leader email
 
 ## Deploy frontend app to hosting
 
@@ -58,10 +58,10 @@
 Ensure you have enabled billing and blaze account level for firebase.
 
 15. Configure environment variables based on README.md
-15. a) Configure chat bot with oauth token
-15. a.1) Create slack bot oauth token with permissions in "Bot Token Scopes" section: chat:write, commands, user.profile:read, users:read, users:read.email
-15. a.2) Install app to slack workspace bia "Install App to Workspace"
-15. a.3) Copy "Bot User OAuth Access Token"
+    15. Configure chat bot with oauth token
+        15. Create slack bot oauth token with permissions in "Bot Token Scopes" section: chat:write, commands, user.profile:read, users:read, users:read.email
+        15. Install app to slack workspace bia "Install App to Workspace"
+        15. Copy "Bot User OAuth Access Token"
 16. Run `firebase deploy --only functions`
 
 ## Add chat cloud functions as chat bot to slack
