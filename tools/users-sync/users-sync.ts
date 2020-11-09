@@ -30,6 +30,14 @@ const chapterLeaderMap = users.users
     }),
     {}
   );
+const channelMap = users.channels.reduce(
+  (map, channel) => ({
+    ...map,
+    [channel.key]: channel
+  }),
+  {}
+);
+
 const compareObjects = (a, b, ignoreFields: string[] = []) => {
   const aKeys = Object.keys(a).filter(key => ignoreFields.indexOf(key) < 0);
   const bKeys = Object.keys(b).filter(key => ignoreFields.indexOf(key) < 0);
@@ -38,31 +46,6 @@ const compareObjects = (a, b, ignoreFields: string[] = []) => {
   }
   return aKeys.map(aKey => a[aKey] === b[aKey]).every(match => match);
 }
-
-(async function () {
-  console.log(`Update users with chapter link`);
-  await updateCollection(`team/${team}/user/`, userMap, (id, existingUser) => {
-      if (!compareObjects(existingUser, userMap[id], ['stats'])) {
-        return userMap[id];
-      }
-    },
-    true
-  );
-
-  console.log(`Update system users`);
-  await updateCollection(`user/`, chapterLeaderMap, (id, existingUser) => {
-      if (!existingUser.teams[team]) {
-        return {
-          teams: {
-            [team]: true
-          }
-        };
-      }
-    },
-    false
-  );
-})();
-
 
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
@@ -104,3 +87,36 @@ async function updateCollection(collection, users, updateFn: (id, existingUser) 
   });
   console.log(` synced users: ${usersToSync}`);
 }
+
+(async function () {
+  console.log(`Update users with chapter link`);
+  await updateCollection(`team/${team}/user/`, userMap, (id, existingUser) => {
+      if (!compareObjects(existingUser, userMap[id], ['stats'])) {
+        return userMap[id];
+      }
+    },
+    true
+  );
+
+  console.log(`Update system users`);
+  await updateCollection(`user/`, chapterLeaderMap, (id, existingUser) => {
+      if (!existingUser.teams[team]) {
+        return {
+          teams: {
+            [team]: true
+          }
+        };
+      }
+    },
+    false
+  );
+
+  console.log(`Update feedback channels`);
+  await updateCollection(`team/${team}/channel/`, channelMap, (id, existingChannel) => {
+      if (!compareObjects(existingChannel, channelMap[id])) {
+        return channelMap[id];
+      }
+    },
+    true
+  );
+})();
