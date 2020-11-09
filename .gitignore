@@ -35,7 +35,7 @@ yarn-error.log
 testem.log
 /typings
 .local.env
-.firebase
+.firebaserc
 firebase-debug.log
 tools/users-sync/users
 
