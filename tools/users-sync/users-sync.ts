@@ -30,7 +30,7 @@ const chapterLeaderMap = users.users
     }),
     {}
   );
-const channelMap = users.channels.reduce(
+const channelMap = users.groups.reduce(
   (map, channel) => ({
     ...map,
     [channel.key]: channel

@@ -36,6 +36,7 @@ testem.log
 /typings
 .local.env
 .firebaserc
+.firebase
 firebase-debug.log
 tools/users-sync/users
 

@@ -22,21 +22,30 @@ export const kudosHandlerFactory = (
         }
 
         const slashCommand: SlashCommandRequest = request.body;
-        const mentions = slashCommand.text.match(/@[^\s]+/);
-        if (mentions && mentions.length === 1) {
-            const mention = mentions[0].substr(1);
-            const feedback = slashCommand.text.substr(mention.length + 2);
 
-            await pubsub.topic('pending-slack-notifications').publish(Buffer.from(JSON.stringify(<PendingKudosMessage>{
-                mention, feedback, user: slashCommand.user_name, team: slashCommand.team_domain
-            })));
+        const userMention = slashCommand.text.match(/@[^\s]+/);
+        const channelMention = slashCommand.text.match(/#[^\s]+/);
+        if (userMention && userMention.length === 1) {
+          const mention = userMention[0].substr(1);
+          const feedback = slashCommand.text.substr(mention.length + 2);
 
-            response.contentType('json')
-                .status(200)
-                .send({
-                    'response_type': 'ephemeral',
-                    'text': `Thank you for your feedback!`
-                });
+          await pubsub.topic('pending-slack-notifications').publish(Buffer.from(JSON.stringify(<PendingKudosMessage>{
+            mention, feedback, user: slashCommand.user_name, team: slashCommand.team_domain
+          })));
+
+          response.contentType('json')
+            .status(200)
+            .send({
+              'response_type': 'ephemeral',
+              'text': `Thank you for your feedback!`
+            });
+        } else if (channelMention && channelMention.length === 1) {
+          response.contentType('json')
+            .status(200)
+            .send({
+              'response_type': 'ephemeral',
+              'text': `Channel mentions not fully implemented yet`
+            });
         } else {
             response.contentType('json')
                 .status(200)
