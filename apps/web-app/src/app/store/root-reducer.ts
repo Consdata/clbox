@@ -6,6 +6,7 @@ import {inboxReducer} from '../features/inbox/state/inbox.reducer';
 import {sentReducer} from '../features/sent/state/sent.reducer';
 import {statsReducer} from '../features/stats/state/stats.reducer';
 import {teamReducer} from '../features/team/state/team.reducer';
+import {profileReducer} from "../features/profile/state/profile.reducer";
 
 export const rootReducer = history => combineReducers({
   router: connectRouter(history),
@@ -14,5 +15,6 @@ export const rootReducer = history => combineReducers({
   inbox: inboxReducer,
   sent: sentReducer,
   stats: statsReducer,
-  chapterStats: chapterStatsReducer
+  chapterStats: chapterStatsReducer,
+  profile: profileReducer
 });
