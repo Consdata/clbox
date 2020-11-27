@@ -12,6 +12,7 @@ import {notificationAfterLeaderChangeFactory} from './app/notification-after-lea
 import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback/notyfication-after-feedback.handler';
 import {sendFeedbackFactory} from './app/send-feedback/send-feedback.handler';
 import {userFeedbackStatsFactory} from './app/user-feedback-stats/user-feedback-stats-factory';
+import {storeChannelFeedbackHandlerFactory} from "./app/store-channel-feedback/store-channel-feedback.handler";
 
 firebase.initializeApp();
 
@@ -23,7 +24,9 @@ const functionBuilder: () => FunctionBuilder = () => region
   });
 
 export const awakeHandler = awakeHandlerFactory(functionBuilder());
-export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase);
+export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase, 'pending-user-feedbacks');
+export const sendFeedbackFallback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase, 'pending-slack-notifications');
+export const storeChannelFeedback = storeChannelFeedbackHandlerFactory(functionBuilder(), functions.config(), firebase, 'pending-channel-feedbacks');
 export const notificationAfterFeedback = notificationAfterFeedbackFactory(functionBuilder(), functions.config());
 export const notificationAfterLeaderChange = notificationAfterLeaderChangeFactory(functionBuilder(), functions.config());
 export const feedbackStats = feedbackStatsFactory(functionBuilder(), firebase);
@@ -31,4 +34,10 @@ export const userFeedbackStats = userFeedbackStatsFactory(functionBuilder(), fir
 export const createUser = createUserFactory(functionBuilder(), firebase);
 export const expireUserAccounts = expireUserAccountsFactory(functionBuilder(), firebase);
 export const getChapterStats = getChapterStatsFactory(functionBuilder(), firebase);
-export const kudosHandler = kudosHandlerFactory(functionBuilder().runWith({memory: '512MB'}), functions.config(), new PubSub());
+export const kudosHandler = kudosHandlerFactory(
+  functionBuilder().runWith({memory: '512MB'}),
+  functions.config(),
+  new PubSub(),
+  'pending-slack-notifications',
+  'pending-channel-feedbacks'
+);

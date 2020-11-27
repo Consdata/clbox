@@ -1,11 +1,13 @@
 import {checkSlackSignature} from '../slack/check-slack-signature';
-import {PendingKudosMessage} from '../pending-kudos-message';
+import {PendingFeedbackMessage} from '../pending-feedback-message';
 import {SlashCommandRequest} from '../slack/slash-command-request';
 
 export const kudosHandlerFactory = (
     functions: import('firebase-functions').FunctionBuilder,
     config: import('firebase-functions').config.Config,
-    pubsub: import('@google-cloud/pubsub').PubSub) =>
+    pubsub: import('@google-cloud/pubsub').PubSub,
+    userFeedbackTopic: string,
+    channelFeedbackTopic: string) =>
     functions.https.onRequest(async (request, response) => {
         if (request.method !== 'POST') {
             response.status(405).send('Invalid request method (only POST allowed)');
@@ -29,7 +31,7 @@ export const kudosHandlerFactory = (
           const mention = userMention[0].substr(1);
           const feedback = slashCommand.text.substr(mention.length + 2);
 
-          await pubsub.topic('pending-slack-notifications').publish(Buffer.from(JSON.stringify(<PendingKudosMessage>{
+          await pubsub.topic(userFeedbackTopic).publish(Buffer.from(JSON.stringify(<PendingFeedbackMessage>{
             mention, feedback, user: slashCommand.user_name, team: slashCommand.team_domain
           })));
 
@@ -40,18 +42,27 @@ export const kudosHandlerFactory = (
               'text': `Thank you for your feedback!`
             });
         } else if (channelMention && channelMention.length === 1) {
+          const mention = channelMention[0].substr(1);
+          const feedback = slashCommand.text.substr(mention.length + 2);
+
+          console.log(`Channel feedback for ${mention}: ${feedback}`);
+
+          await pubsub.topic(channelFeedbackTopic).publish(Buffer.from(JSON.stringify(<PendingFeedbackMessage>{
+            mention, feedback, user: slashCommand.user_name, team: slashCommand.team_domain
+          })));
+
           response.contentType('json')
             .status(200)
             .send({
               'response_type': 'ephemeral',
-              'text': `Channel mentions not fully implemented yet`
+              'text': `Thank you for your feedback!`
             });
         } else {
             response.contentType('json')
                 .status(200)
                 .send({
                     'response_type': 'ephemeral',
-                    'text': `Please use /kudos @mention rest of the feedback`
+                    'text': `Please use /kudos @mention/#mention rest of the feedback`
                 });
         }
     });

@@ -1,5 +1,5 @@
 import * as nodeFetch from 'node-fetch';
-import {PendingKudosMessage} from '../pending-kudos-message';
+import {PendingFeedbackMessage} from '../pending-feedback-message';
 import {SlackUser} from '../slack/slack-user';
 
 import {SlackUserIndex} from '../slack/slack-user-index';
@@ -20,7 +20,7 @@ async function sendSlackMessage(slackHttpHeaders: { Authorization: string; 'Cont
   });
 }
 
-function message(forUser: SlackUserProfile, fromUser: SlackUserProfile, payload: PendingKudosMessage) {
+function message(forUser: SlackUserProfile, fromUser: SlackUserProfile, payload: PendingFeedbackMessage) {
   return {
     date: now(),
     for: forUser.email,
@@ -29,7 +29,8 @@ function message(forUser: SlackUserProfile, fromUser: SlackUserProfile, payload:
     from: fromUser.email,
     fromName: fromUser.display_name,
     fromSlack: payload.user,
-    message: payload.feedback
+    message: payload.feedback,
+    type: 'personal'
   };
 }
 
@@ -37,7 +38,7 @@ function failedToDeliverCollection(firebase: typeof import('firebase-admin'), te
   return firebase.firestore().collection(`team/${team}/inbox/failed-to-deliver/message`)
 }
 
-async function failedToSendFeedback(firebase: typeof import('firebase-admin'), headers, payload: PendingKudosMessage, error: string, message: string) {
+async function failedToSendFeedback(firebase: typeof import('firebase-admin'), headers, payload: PendingFeedbackMessage, error: string, message: string) {
   console.error(JSON.stringify({
     msg: error, payload
   }));
@@ -52,7 +53,8 @@ async function failedToSendFeedback(firebase: typeof import('firebase-admin'), h
 export const sendFeedbackFactory = (
   functions: import('firebase-functions').FunctionBuilder,
   config: import('firebase-functions').config.Config,
-  firebase: typeof import('firebase-admin')) => {
+  firebase: typeof import('firebase-admin'),
+  topic: string) => {
   const slackHttpHeaders = {
     Authorization: `Bearer ${config.slack.bottoken}`,
     'Content-type': 'application/json'
@@ -69,10 +71,10 @@ export const sendFeedbackFactory = (
       )
     );
 
-  return functions.pubsub.topic('pending-slack-notifications').onPublish(
+  return functions.pubsub.topic(topic).onPublish(
     async (topicMessage, context) => {
       const usersIndex = await usersIndexPromise;
-      const payload: PendingKudosMessage = JSON.parse(Buffer.from(topicMessage.data, 'base64').toString());
+      const payload: PendingFeedbackMessage = JSON.parse(Buffer.from(topicMessage.data, 'base64').toString());
 
       const fromUser: SlackUserProfile = usersIndex[payload.user]?.profile;
       const forUser: SlackUserProfile = usersIndex[payload.mention]?.profile;

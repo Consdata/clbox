@@ -1,4 +1,4 @@
-export interface PendingKudosMessage {
+export interface PendingFeedbackMessage {
     mention: string;
     feedback: string;
     user: string;
