@@ -28,7 +28,7 @@
                 })));
             }));
         const messages = userMessages.reduce((all, user) => [...all, ...user], []);
-        const wrongSentMessages = messages.find(message => message.userSent !== message.from);
-        console.log(`wrongSentMessages=${JSON.stringify(wrongSentMessages || [])}`);
+        const wrongSentMessages = messages.filter(message => message.userSent !== message.from);
+        console.log(`wrongSentMessages=${JSON.stringify(wrongSentMessages?.map(message => message.id))}`);
     })();
 })();
