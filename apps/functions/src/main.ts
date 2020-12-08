@@ -35,6 +35,6 @@ export const kudosHandler = kudosHandlerFactory(
   functionBuilder().runWith({memory: '512MB'}),
   functions.config(),
   new PubSub(),
-  'pending-slack-notifications',
+  'pending-user-feedbacks',
   'pending-channel-feedbacks'
 );
