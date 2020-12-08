@@ -12,7 +12,14 @@ export async function userList(bottoken: unknown): Promise<SlackUserIndex> {
       },
     })
     .then(res => res.json())
-    .then(res => res.members)
+    .then(res => {
+      if (res.members) {
+        return res.members;
+      } else {
+        console.log(`Can't fetch slack user list (missing members info) [%o]`, res);
+        throw new Error(`Can't fetch slack user list`);
+      }
+    })
     .then(
       (users: SlackUser[]) => users.reduce((index, user) => ({
           ...index,
@@ -20,5 +27,6 @@ export async function userList(bottoken: unknown): Promise<SlackUserIndex> {
         }),
         {}
       )
-    );
+    )
+    .catch(error => console.log(`Can't fetch slack user list [%o]`, error));
 }

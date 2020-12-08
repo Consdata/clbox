@@ -18,7 +18,7 @@ export const kudosHandlerFactory = (
             request.headers['x-slack-request-timestamp'],
             request.rawBody.toString()
         )) {
-            console.error('Invalid slack signing');
+            console.log('Invalid slack signing');
             response.status(401).send('Invalid slack signing');
             return;
         }

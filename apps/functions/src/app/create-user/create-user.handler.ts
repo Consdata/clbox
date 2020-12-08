@@ -14,8 +14,8 @@ export const createUserFactory = (
     }
   }
 
-  return functions.https.onCall(async (data, context) => {
-    console.info(`Request for user registration (${JSON.stringify(data)})`);
+  return functions.https.onCall(async (data) => {
+    console.log(`Request for user registration (${JSON.stringify(data)})`);
 
     const registerRequest = data as CreateUserRequest;
     const emailMatch = registerRequest?.email?.match(emailRegex);
@@ -36,7 +36,7 @@ export const createUserFactory = (
     } else {
       const existingUser = await tryToFindUserByEmail(registerRequest.email);
       if (!existingUser) {
-        console.info(`User created for email: ${registerRequest.email}`);
+        console.log(`User created for email: ${registerRequest.email}`);
         await firebase.auth().createUser({
           email: registerRequest.email,
           emailVerified: false
@@ -47,7 +47,7 @@ export const createUserFactory = (
           }
         })
       } else {
-        console.info(`User already exists (${registerRequest.email})`);
+        console.log(`User already exists (${registerRequest.email})`);
       }
       return {
         status: 'ok'
