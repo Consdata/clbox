@@ -8,11 +8,14 @@ service cloud.firestore {
     	return request.auth.token.email
     }
 
-    function getUser( user) {
+    function getUser(user) {
     	return get(/databases/$(database)/documents/user/$(user)).data
     }
     function getTeamUser(team, user) {
     	return get(/databases/$(database)/documents/team/$(team)/user/$(user)).data
+    }
+    function getChannel (team, channel) {
+    	return get(/databases/$(database)/documents/team/$(team)/channel/$(channel)).data
     }
 
     // read user info for logged user
@@ -42,6 +45,10 @@ service cloud.firestore {
     // read team stats for logged user
   	match /team/{team}/stats/{day} {
     	allow read: if isAuthentiacted(request) && getUser(authEmail(request)).teams[team] == true
+    }
+    // read&write channel for managers
+    match /team/{team}/channel/{channel}/{document=**} {
+      allow read, write: if isAuthentiacted(request) && getChannel(team, channel).managerMap[authEmail(request)] == true
     }
     // default deny
     match /{document=**} {
