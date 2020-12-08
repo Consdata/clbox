@@ -34,7 +34,7 @@ export const storeChannelFeedbackHandlerFactory = (
 
       await firestore.runTransaction(async trn => {
         const inboxDoc = firestore.collection(`team/${payload.team}/channel/${payload.mention}/inbox`).doc();
-        const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent-channel`).doc(inboxDoc.id);
+        const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(inboxDoc.id);
         trn.set(inboxDoc, message(fromUser, payload));
         trn.set(sentDoc, message(fromUser, payload));
       });
