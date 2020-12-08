@@ -1,6 +1,5 @@
 import {PendingFeedbackMessage} from '../pending-feedback-message';
 
-import {SlackUserIndex} from '../slack/slack-user-index';
 import {SlackUserProfile} from '../slack/slack-user-profile';
 import {userList} from "../slack/fetch-user-list";
 
@@ -25,10 +24,9 @@ export const storeChannelFeedbackHandlerFactory = (
   config: import('firebase-functions').config.Config,
   firebase: typeof import('firebase-admin'),
   topic: string) => {
-  const usersIndexPromise: Promise<SlackUserIndex> = userList(config.slack.bottoken);
   return functions.pubsub.topic(topic).onPublish(
-    async (topicMessage, context) => {
-      const usersIndex = await usersIndexPromise;
+    async (topicMessage) => {
+      const usersIndex = await userList(config.slack.bottoken);
       const payload: PendingFeedbackMessage = JSON.parse(Buffer.from(topicMessage.data, 'base64').toString());
 
       const fromUser: SlackUserProfile = usersIndex[payload.user]?.profile;
