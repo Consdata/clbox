@@ -2,7 +2,6 @@ import {PubSub} from '@google-cloud/pubsub';
 import * as firebase from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {FunctionBuilder} from 'firebase-functions';
-import {awakeHandlerFactory} from './app/awake/awake.handler';
 import {createUserFactory} from './app/create-user/create-user.handler';
 import {expireUserAccountsFactory} from './app/expire-user-accounts/expire-user-accounts-factory';
 import {feedbackStatsFactory} from './app/feedback-stats/feedback-stats-factory';
@@ -23,9 +22,7 @@ const functionBuilder: () => FunctionBuilder = () => region
     memory: '256MB'
   });
 
-export const awakeHandler = awakeHandlerFactory(functionBuilder());
 export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase, 'pending-user-feedbacks');
-export const sendFeedbackFallback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase, 'pending-slack-notifications');
 export const storeChannelFeedback = storeChannelFeedbackHandlerFactory(functionBuilder(), functions.config(), firebase, 'pending-channel-feedbacks');
 export const notificationAfterFeedback = notificationAfterFeedbackFactory(functionBuilder(), functions.config());
 export const notificationAfterLeaderChange = notificationAfterLeaderChangeFactory(functionBuilder(), functions.config());
