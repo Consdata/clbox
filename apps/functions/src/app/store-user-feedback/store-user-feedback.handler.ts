@@ -55,7 +55,7 @@ export const storeUserFeedbackFactory = (
     'Content-type': 'application/json'
   };
   return functions.pubsub.topic(topic).onPublish(
-    async (topicMessage, context) => {
+    async (topicMessage) => {
       console.log('Sending feedback after pubsub event');
 
       const usersIndex = await userList(config.slack.bottoken);
@@ -80,8 +80,15 @@ export const storeUserFeedbackFactory = (
 
       if (chapterLeader !== undefined) {
         await firestore.runTransaction(async trn => {
-          const inboxDoc = firestore.collection(`team/${payload.team}/inbox/${chapterLeader}/message`).doc();
-          const sentDoc = firestore.collection(`team/${payload.team}/sent/${fromUser.email}/message`).doc(inboxDoc.id);
+          const inboxDoc = firestore.collection(`team/${payload.team}/user/${chapterLeader}/inbox`).doc();
+          const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(inboxDoc.id);
+
+          const inboxLegacyDoc = firestore.collection(`team/${payload.team}/inbox/${chapterLeader}/message`).doc(inboxDoc.id);
+          const sentLegacyDoc = firestore.collection(`team/${payload.team}/sent/${fromUser.email}/message`).doc(inboxDoc.id);
+
+          trn.set(inboxLegacyDoc, message(forUser, fromUser, payload));
+          trn.set(sentLegacyDoc, message(forUser, fromUser, payload));
+
           trn.set(inboxDoc, message(forUser, fromUser, payload));
           trn.set(sentDoc, message(forUser, fromUser, payload));
         });
