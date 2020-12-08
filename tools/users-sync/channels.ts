@@ -6,6 +6,7 @@ export const channels: ChannelDocument[] = Object.values(directory.channels).map
     const managers = channel.managers.map(manager => directory.users[manager].email);
     return {
       display_name: channel.display_name,
+      short_name: channel.short_name,
       managers: managers,
       managerMap: managers.reduce((map, manager) => ({
         ...map,

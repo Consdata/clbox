@@ -8,10 +8,11 @@ import {feedbackStatsFactory} from './app/feedback-stats/feedback-stats-factory'
 import {getChapterStatsFactory} from './app/get-chapter-stats/get-chapter-stats-factory';
 import {kudosHandlerFactory} from './app/kudos/kudos.handler';
 import {notificationAfterLeaderChangeFactory} from './app/notification-after-leader-change/notification-after-leader-change-factory';
-import {notificationAfterFeedbackFactory} from './app/notyfication-after-feedback/notyfication-after-feedback.handler';
-import {sendFeedbackFactory} from './app/send-feedback/send-feedback.handler';
+import {notifyAfterUserFeedbackFactory} from './app/notify-after-user-feedback/notify-after-user-feedback.handler';
+import {storeUserFeedbackFactory} from './app/store-user-feedback/store-user-feedback.handler';
 import {userFeedbackStatsFactory} from './app/user-feedback-stats/user-feedback-stats-factory';
 import {storeChannelFeedbackHandlerFactory} from "./app/store-channel-feedback/store-channel-feedback.handler";
+import {notifyAfterChannelFeedbackFactory} from "./app/notify-after-channel-feedback/notify-after-channel-feedback.handler";
 
 firebase.initializeApp();
 
@@ -22,10 +23,11 @@ const functionBuilder: () => FunctionBuilder = () => region
     memory: '256MB'
   });
 
-export const sendFeedback = sendFeedbackFactory(functionBuilder(), functions.config(), firebase, 'pending-user-feedbacks');
+export const storeUserFeedback = storeUserFeedbackFactory(functionBuilder(), functions.config(), firebase, 'pending-user-feedbacks');
 export const storeChannelFeedback = storeChannelFeedbackHandlerFactory(functionBuilder(), functions.config(), firebase, 'pending-channel-feedbacks');
-export const notificationAfterFeedback = notificationAfterFeedbackFactory(functionBuilder(), functions.config());
-export const notificationAfterLeaderChange = notificationAfterLeaderChangeFactory(functionBuilder(), functions.config());
+export const notifyAfterUserFeedback = notifyAfterUserFeedbackFactory(functionBuilder(), functions.config());
+export const notifyAfterChannelFeedback = notifyAfterChannelFeedbackFactory(functionBuilder(), functions.config(), firebase);
+export const notifyAfterLeaderChange = notificationAfterLeaderChangeFactory(functionBuilder(), functions.config());
 export const feedbackStats = feedbackStatsFactory(functionBuilder(), firebase);
 export const userFeedbackStats = userFeedbackStatsFactory(functionBuilder(), firebase);
 export const createUser = createUserFactory(functionBuilder(), firebase);
