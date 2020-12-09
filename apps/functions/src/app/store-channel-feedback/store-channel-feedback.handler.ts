@@ -2,6 +2,7 @@ import {PendingFeedbackMessage} from '../pending-feedback-message';
 
 import {SlackUserProfile} from '../slack/slack-user-profile';
 import {userList} from "../slack/fetch-user-list";
+import {sendSlackMessage} from "../slack/send-slack-message";
 
 function now() {
   return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
@@ -19,6 +20,7 @@ function asMessage(fromUser: SlackUserProfile, payload: PendingFeedbackMessage) 
   };
 }
 
+
 export const storeChannelFeedbackHandlerFactory = (
   functions: import('firebase-functions').FunctionBuilder,
   config: import('firebase-functions').config.Config,
@@ -32,16 +34,32 @@ export const storeChannelFeedbackHandlerFactory = (
       const fromUser: SlackUserProfile = usersIndex[payload.user]?.profile;
       const firestore = firebase.firestore();
 
-      await firestore.runTransaction(async trn => {
-        const channelInboxDoc = firestore.collection(`team/${payload.team}/channel/${payload.mention}/inbox`).doc();
-        const userInboxDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/inbox`).doc(channelInboxDoc.id);
-        const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(channelInboxDoc.id);
+      const channel = await firestore.collection(`team/${payload.team}/channel`)
+        .doc(payload.mention)
+        .get();
 
-        const message = asMessage(fromUser, payload);
-        trn.set(userInboxDoc, message);
-        trn.set(channelInboxDoc, message);
-        trn.set(sentDoc, message);
-      });
+      if (channel.exists) {
+        await firestore.runTransaction(async trn => {
+          const channelInboxDoc = firestore.collection(`team/${payload.team}/channel/${payload.mention}/inbox`).doc();
+          const userInboxDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/inbox`).doc(channelInboxDoc.id);
+          const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(channelInboxDoc.id);
+
+          const message = asMessage(fromUser, payload);
+          trn.set(userInboxDoc, message);
+          trn.set(channelInboxDoc, message);
+          trn.set(sentDoc, message);
+        })
+      } else {
+        await Promise.all([
+          firestore.collection(`team/${payload.team}/channel/failed-to-deliver/inbox`).add({
+            msg: `Can't find channel for feedback`, date: now(), payload
+          }),
+          sendSlackMessage(config.slack.bottoken, {
+            channel: `@${payload.user}`,
+            text: `Channel mentioned in feedback (${payload.mention}) not found.`
+          })
+        ]);
+      }
     }
   );
 }
