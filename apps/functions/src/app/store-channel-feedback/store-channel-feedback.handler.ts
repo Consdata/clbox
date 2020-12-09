@@ -7,7 +7,7 @@ function now() {
   return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
 }
 
-function message(fromUser: SlackUserProfile, payload: PendingFeedbackMessage) {
+function asMessage(fromUser: SlackUserProfile, payload: PendingFeedbackMessage) {
   return {
     date: now(),
     forSlack: payload.mention,
@@ -33,10 +33,14 @@ export const storeChannelFeedbackHandlerFactory = (
       const firestore = firebase.firestore();
 
       await firestore.runTransaction(async trn => {
-        const inboxDoc = firestore.collection(`team/${payload.team}/channel/${payload.mention}/inbox`).doc();
-        const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(inboxDoc.id);
-        trn.set(inboxDoc, message(fromUser, payload));
-        trn.set(sentDoc, message(fromUser, payload));
+        const channelInboxDoc = firestore.collection(`team/${payload.team}/channel/${payload.mention}/inbox`).doc();
+        const userInboxDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/inbox`).doc(channelInboxDoc.id);
+        const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(channelInboxDoc.id);
+
+        const message = asMessage(fromUser, payload);
+        trn.set(userInboxDoc, message);
+        trn.set(channelInboxDoc, message);
+        trn.set(sentDoc, message);
       });
     }
   );
