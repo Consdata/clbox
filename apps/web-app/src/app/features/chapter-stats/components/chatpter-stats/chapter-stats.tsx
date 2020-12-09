@@ -48,12 +48,12 @@ function statsFor(year: string, user: UserStats) {
 }
 
 const months = [
-  '2020-07',
   '2020-08',
   '2020-09',
   '2020-10',
   '2020-11',
-  '2020-12'
+  '2020-12',
+  '2021-01',
 ]
 
 const StatsView = ({team}: ViewProps) => {
