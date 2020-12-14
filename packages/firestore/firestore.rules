@@ -27,7 +27,7 @@ service cloud.firestore {
     	allow read: if isAuthentiacted(request) && getUser(authEmail(request)).teams[team] == true
     }
     // read team user info for logged user
-    match /team/{team}/user/{user} {
+    match /team/{team}/user/{user}/{document=**} {
     	allow read: if isAuthentiacted(request) && user == authEmail(request)
     }
     // read team user info user chapter leader

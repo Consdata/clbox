@@ -8,9 +8,11 @@ function now() {
   return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
 }
 
-function asMessage(fromUser: SlackUserProfile, payload: PendingFeedbackMessage) {
+function asMessage(channel, fromUser: SlackUserProfile, payload: PendingFeedbackMessage) {
   return {
     date: now(),
+    for: payload.mention,
+    forName: channel.short_name,
     forSlack: payload.mention,
     from: fromUser.email,
     fromName: fromUser.display_name,
@@ -44,7 +46,7 @@ export const storeChannelFeedbackHandlerFactory = (
           const userInboxDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/inbox`).doc(channelInboxDoc.id);
           const sentDoc = firestore.collection(`team/${payload.team}/user/${fromUser.email}/sent`).doc(channelInboxDoc.id);
 
-          const message = asMessage(fromUser, payload);
+          const message = asMessage(channel.data(), fromUser, payload);
           trn.set(userInboxDoc, message);
           trn.set(channelInboxDoc, message);
           trn.set(sentDoc, message);

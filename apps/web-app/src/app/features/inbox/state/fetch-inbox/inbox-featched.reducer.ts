@@ -1,6 +1,6 @@
 import {Draft} from '@reduxjs/toolkit';
-import {InboxState} from '../inbox-state';
 import {inboxFetched} from './inbox-fetched';
+import {InboxState} from "../inbox-state";
 
 export const inboxFetchedReducer = (state: Draft<InboxState>, action: ReturnType<typeof inboxFetched>) => {
     state.messages = {

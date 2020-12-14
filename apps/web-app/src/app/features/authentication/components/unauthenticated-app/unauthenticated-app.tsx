@@ -18,8 +18,7 @@ export const UnauthenticatedAppView = ({authenticated}: ViewProps) => <div>
     </Switch>}
 </div>;
 
-interface ViewProps extends ConnectedProps<typeof connector> {
-}
+type ViewProps = ConnectedProps<typeof connector>
 
 const connector = connect(
     (state: AppState) => ({

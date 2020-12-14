@@ -8,5 +8,8 @@ export interface Message {
     forName: string;
     date: string;
     message: string;
+    type: 'personal'|'channel';
     state: MessageState;
+    labels: string[];
+    labelMap: {[label: string]: boolean};
 }

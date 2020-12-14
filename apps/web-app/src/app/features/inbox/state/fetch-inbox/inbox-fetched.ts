@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Message} from '../../../message/model/message';
+import {Message} from "../../../message/model/message";
 
 export interface InboxFetchedPayload {
     messages: Message[]

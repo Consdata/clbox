@@ -1,4 +1,4 @@
-import {Toolbar} from '@material-ui/core';
+import {Popover, Toolbar} from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import React from 'react';
@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import {logout} from '../authentication/state/logout/logout.action';
 import {SelectTeam} from '../team/components/select-team/select-team';
 import {AppState} from "../../state/app-state";
+import {NavbarUserCard} from "../profile/components/navbar-user-card/navbar-user-card";
 
 const ActionButton = styled(props => <Button color="inherit" {...props}>{props.children}</Button>)`
     min-width: 0;
@@ -23,32 +24,30 @@ const MenuSpacer = styled.div`
     margin: 0 8px;
 `;
 
-const NavbarView = ({onLogout, isLeader}: ConnectedProps<typeof connector>) => (
-  <AppBar position="static">
-    <Toolbar>
-      <SelectTeam></SelectTeam>
-      <MenuSpacer/>
-      <ActionButton color="inherit" component={Link} to="/inbox">Inbox</ActionButton>
-      <ActionButton color="inherit" component={Link} to="/sent">Sent</ActionButton>
-      <ActionButton color="inherit" component={Link} to="/stats">Stats</ActionButton>
-      {isLeader && <ActionButton color="inherit" component={Link} to="/chapter-stats">Chapter</ActionButton>}
-      {/*<ActionButton color="inherit" component={Link} to="/dashboard">Dashboard</ActionButton>*/}
-      {/*<ActionButton color="inherit" component={Link} to="/chapter">Chapter</ActionButton>*/}
-      {/*<ActionButton color="inherit" component={Link} to="/mine">Ty</ActionButton>*/}
-      <Filler/>
-      <ActionButton onClick={onLogout}>Logout</ActionButton>
-    </Toolbar>
-  </AppBar>
+const NavbarView = ({isLeader}: ConnectedProps<typeof connector>) => (
+    <AppBar position="static">
+        <Toolbar>
+            <SelectTeam></SelectTeam>
+            <MenuSpacer/>
+            <ActionButton color="inherit" component={Link} to="/inbox">Inbox</ActionButton>
+            <ActionButton color="inherit" component={Link} to="/sent">Sent</ActionButton>
+            <ActionButton color="inherit" component={Link} to="/stats">Stats</ActionButton>
+            {isLeader && <ActionButton color="inherit" component={Link} to="/chapter-stats">Chapter</ActionButton>}
+            {/*<ActionButton color="inherit" component={Link} to="/dashboard">Dashboard</ActionButton>*/}
+            {/*<ActionButton color="inherit" component={Link} to="/chapter">Chapter</ActionButton>*/}
+            {/*<ActionButton color="inherit" component={Link} to="/mine">Ty</ActionButton>*/}
+            <Filler/>
+            <NavbarUserCard />
+        </Toolbar>
+    </AppBar>
 );
 
 const connector = connect(
-  (state: AppState) => ({
-    isLeader: state.profile?.profile?.leader === true,
-  }),
-  {
-    onLogout: () => logout()
-  }
+    (state: AppState) => ({
+        isLeader: state.profile?.profile?.leader === true,
+    }),
+    {
+    }
 );
 
 export const Navbar = connector(NavbarView);
-

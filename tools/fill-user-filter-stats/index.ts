@@ -26,7 +26,11 @@ async function syncInboxFilterStats(user: FirebaseFirestore.DocumentReference<Fi
         name: message.forName,
         count: 0
       },
-      channel: message.type === 'channel' && message.forSlack,
+      channel: message.type === 'channel' && {
+          name: message.for,
+          shortName: message.forName,
+          count: 0
+      },
       labels: message.labels ?? [],
       date: message.date
     };
@@ -40,7 +44,8 @@ async function syncInboxFilterStats(user: FirebaseFirestore.DocumentReference<Fi
         stats.users[extract.user.email] = stats.users[extract.user.email] || extract.user;
         stats.users[extract.user.email].count++;
       } else {
-        stats.channels[extract.channel] = (stats.channels[extract.channel] || 0) + 1;
+        stats.channels[extract.channel.name] = stats.channels[extract.channel.name] || extract.channel;
+        stats.channels[extract.channel.name].count++;
       }
       return stats;
     },
