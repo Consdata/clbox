@@ -1,6 +1,6 @@
 import {Epic} from 'redux-observable';
 import {from} from 'rxjs';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 import {AppState} from '../../../state/app-state';
 import {loggedIn} from '../../authentication/state/login/logged-in.action';
 import {firebaseApp} from '../../firebase/firebase.app';
