@@ -6,7 +6,6 @@ import {AppState} from '../../../../state/app-state';
 import {loggedIn} from '../../../authentication/state/login/logged-in.action';
 import {firebaseApp} from '../../../firebase/firebase.app';
 import {Message} from '../../../message/model/message';
-import {MessageState} from '../../../message/model/message-state';
 import {sentFetched} from './sent-fetched';
 
 const firestore = firebaseApp.firestore();
@@ -32,7 +31,6 @@ export const fetchSentEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = (
   map(messages => sentFetched({
     messages: messages.docs.map(doc => (<Message>{
       id: doc.id,
-      state: MessageState.Pending,
       ...doc.data()
     }))
   })),

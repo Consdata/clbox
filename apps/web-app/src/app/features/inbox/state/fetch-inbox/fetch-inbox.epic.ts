@@ -3,7 +3,6 @@ import {Epic} from 'redux-observable';
 import {combineLatest, Observable, of} from 'rxjs';
 import {distinct, map, switchMap} from 'rxjs/operators';
 import {firebaseApp} from "../../../firebase/firebase.app";
-import {MessageState} from "../../../message/model/message-state";
 import {inboxFetched} from "./inbox-fetched";
 import {loggedIn} from "../../../authentication/state/login/logged-in.action";
 import {AppState} from "../../../../state/app-state";
@@ -32,7 +31,6 @@ export const fetchInboxEpic: Epic<ReturnType<typeof loggedIn>, any, AppState> = 
     map(messages => inboxFetched({
         messages: messages.docs.map(doc => (<Message>{
             id: doc.id,
-            state: MessageState.Pending,
             ...doc.data(),
             type: doc.data().type ?? 'personal'
         }))

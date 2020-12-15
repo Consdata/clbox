@@ -52,9 +52,7 @@ type ViewProps = ConnectedProps<typeof connector>
 
 const connector = connect(
     (state: AppState) => ({}),
-    {
-        onDiscard: (message: Message) => discardInboxFeedback({message})
-    }
+    {}
 );
 
 export const Inbox = connector(InboxView);

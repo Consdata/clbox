@@ -1,5 +1,3 @@
-import {MessageState} from './message-state';
-
 export interface Message {
     id: string;
     from: string;
@@ -8,8 +6,7 @@ export interface Message {
     forName: string;
     date: string;
     message: string;
-    type: 'personal'|'channel';
-    state: MessageState;
+    type: 'personal' | 'channel';
     labels: string[];
-    labelMap: {[label: string]: boolean};
+    labelMap: { [label: string]: boolean };
 }
