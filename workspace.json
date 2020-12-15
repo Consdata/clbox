@@ -46,7 +46,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -67,8 +68,6 @@
               "apps/web-app/**/*.jsx",
               "apps/web-app/**/*.ts",
               "apps/web-app/**/*.tsx",
-              "node_modules/@nrwl/react/typings/cssmodule.d.ts",
-              "node_modules/@nrwl/react/typings/image.d.ts",
               "apps/web-app/**/*.spec.ts",
               "apps/web-app/**/*.spec.tsx",
               "apps/web-app/**/*.spec.js",
@@ -82,7 +81,8 @@
           "options": {
             "jestConfig": "apps/web-app/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/web-app"]
         }
       }
     },
@@ -143,7 +143,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -166,7 +167,8 @@
           "options": {
             "jestConfig": "apps/functions/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/functions"]
         }
       }
     }
