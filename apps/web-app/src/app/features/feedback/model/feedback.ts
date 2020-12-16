@@ -1,3 +1,5 @@
+import {FeedbackComment} from "./feedback-comment";
+
 export interface Feedback {
     id: string;
     from: string;
@@ -6,4 +8,5 @@ export interface Feedback {
     forName: string;
     date: string;
     message: string;
+    comments: FeedbackComment[];
 }

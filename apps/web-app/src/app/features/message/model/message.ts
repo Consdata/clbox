@@ -1,3 +1,5 @@
+import {MessageComment} from "./message-comment";
+
 export interface Message {
     id: string;
     from: string;
@@ -9,4 +11,5 @@ export interface Message {
     type: 'personal' | 'channel';
     labels: string[];
     labelMap: { [label: string]: boolean };
+    comments: MessageComment[];
 }

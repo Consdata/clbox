@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {FeedbackCard} from "../../../../feedback/components/feedback-item/feedback-card";
 import {Message} from "../../../../message/model/message";
 import {discardInboxFeedback} from "../../../state/discard-inbox-feedback/discard-inbox-feedback.action";
+import {editFeedbackComment} from "../../../state/edit-feedback-comment/edit-feedback-comment.action";
 
 function filterMessages(messages, filter: InboxFilter) {
     return messages?.filter(msg => {
@@ -31,12 +32,15 @@ const InboxItem = styled.div`
     width: 100%;
 `;
 
-const InboxMessagesView = ({messages, filter, onDiscard}: ViewProps) => {
+const InboxMessagesView = ({messages, filter, onDiscard, onCommentChange}: ViewProps) => {
     const filtered = filterMessages(messages, filter);
     const ordered = sortByDate(filtered); // TODO: user defined sort
     return <div>
         {ordered && ordered.map(msg => <InboxItem key={msg.id}>
-            <FeedbackCard feedback={msg} onDiscard={() => onDiscard(msg)}/>
+            <FeedbackCard
+                feedback={msg}
+                onDiscard={() => onDiscard(msg)}
+                onCommentChange={comment => onCommentChange(msg, comment)}/>
         </InboxItem>)}
     </div>;
 };
@@ -50,7 +54,8 @@ const connector = connect(
         messages: state.inbox.messages?.byId && Object.values(state.inbox.messages?.byId)
     }),
     {
-        onDiscard: (message: Message) => discardInboxFeedback({message})
+        onDiscard: (message: Message) => discardInboxFeedback({message}),
+        onCommentChange: (message: Message, text: string) => editFeedbackComment({message, text})
     }
 );
 
