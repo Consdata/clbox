@@ -2150,6 +2150,25 @@
     eslint-plugin-react-hooks "^2.4.0"
     url-loader "^3.0.0"
 
+"@nrwl/tao@11.0.10":
+  version "11.0.10"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.10.tgz#ce2e2bb0502dc37456068fd84ea30d77243bb62f"
+  integrity sha512-XOObpaJ1J8h5nHI6V86GYbe0QeQqFkcLnk12VfvoTZE/W5e7M8BEVFqXpJTBStdq0447X8WPBsZ7261Gm/qxXA==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    chalk "4.1.0"
+    fs-extra "7.0.1"
+    inquirer "^6.3.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
 "@nrwl/tao@11.0.4":
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.4.tgz#8f5d0ccf859720456c588d215eb06bc8948fb04c"
@@ -12981,7 +13000,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@6.6.3, rxjs@^6.3.3, rxjs@^6.4.0, rxjs@^6.5.4, rxjs@^6.6.3:
+rxjs@6.6.3, rxjs@^6.3.3, rxjs@^6.4.0, rxjs@^6.5.4:
   version "6.6.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.3.tgz#8ca84635c4daa900c0d3967a6ee7ac60271ee552"
   integrity sha512-trsQc+xYYXZ3urjOiJOuCOa5N3jAZ3eiSpQB5hIT8zGlL2QfnHLJ2r7GMkBGuIausdJN1OneaI6gQlsqNHHmZQ==
