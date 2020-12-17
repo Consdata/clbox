@@ -38,9 +38,9 @@ function sumMessages(users: { count: number }[], channels: { count: number }[], 
 }
 
 const InboxSideFilterView = ({stats, filter, onFilter}: ViewProps) => {
-    const users = Object.values(stats.users).filter(user => user.count > 0);
-    const channels = Object.values(stats.channels).filter(channel => channel.count > 0);
-    const labels = Object.entries(stats.labels).filter(label => label[1] > 0);
+    const users = Object.values(stats.users).filter(user => user.count > 0).sort((a, b) => a.name.localeCompare(b.name));
+    const channels = Object.values(stats.channels).filter(channel => channel.count > 0).sort((a, b) => a.name.localeCompare(b.name));
+    const labels = Object.entries(stats.labels).filter(label => label[1] > 0).sort((a, b) => a[0].localeCompare(b[0]));
     const allCount = sumMessages(users, channels, labels);
 
     const filterAll = !filter.channel && !filter.user && !filter.label;

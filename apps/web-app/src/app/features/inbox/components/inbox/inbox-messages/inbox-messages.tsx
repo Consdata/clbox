@@ -7,6 +7,7 @@ import {FeedbackCard} from "../../../../feedback/components/feedback-item/feedba
 import {Message} from "../../../../message/model/message";
 import {discardInboxFeedback} from "../../../state/discard-inbox-feedback/discard-inbox-feedback.action";
 import {editFeedbackComment} from "../../../state/edit-feedback-comment/edit-feedback-comment.action";
+import {editFeedbackLabels} from "../../../state/edit-feedback-labels/edit-feedback-labels.action";
 
 function filterMessages(messages, filter: InboxFilter) {
     return messages?.filter(msg => {
@@ -32,15 +33,18 @@ const InboxItem = styled.div`
     width: 100%;
 `;
 
-const InboxMessagesView = ({messages, filter, onDiscard, onCommentChange}: ViewProps) => {
+const InboxMessagesView = ({messages, inboxLabels, filter, onDiscard, onCommentChange, onLabelsChange}: ViewProps) => {
     const filtered = filterMessages(messages, filter);
     const ordered = sortByDate(filtered); // TODO: user defined sort
     return <div>
         {ordered && ordered.map(msg => <InboxItem key={msg.id}>
             <FeedbackCard
                 feedback={msg}
+                existingLabels={inboxLabels}
                 onDiscard={() => onDiscard(msg)}
-                onCommentChange={comment => onCommentChange(msg, comment)}/>
+                onCommentChange={comment => onCommentChange(msg, comment)}
+                onLabelsChange={labels => onLabelsChange(msg, labels)}
+            />
         </InboxItem>)}
     </div>;
 };
@@ -51,11 +55,16 @@ interface ViewProps extends ConnectedProps<typeof connector> {
 
 const connector = connect(
     (state: AppState) => ({
-        messages: state.inbox.messages?.byId && Object.values(state.inbox.messages?.byId)
+        messages: state.inbox.messages?.byId && Object.values(state.inbox.messages?.byId),
+        inboxLabels: Object
+            .entries(state.inbox.stats.labels)
+            .filter(entry => entry[1] > 0)
+            .map(entry => entry[0])
     }),
     {
         onDiscard: (message: Message) => discardInboxFeedback({message}),
-        onCommentChange: (message: Message, text: string) => editFeedbackComment({message, text})
+        onCommentChange: (message: Message, text: string) => editFeedbackComment({message, text}),
+        onLabelsChange: (message: Message, labels: string[]) => editFeedbackLabels({message, labels}),
     }
 );
 

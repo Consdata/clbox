@@ -9,4 +9,5 @@ export interface Feedback {
     date: string;
     message: string;
     comments: FeedbackComment[];
+    labels: string[];
 }

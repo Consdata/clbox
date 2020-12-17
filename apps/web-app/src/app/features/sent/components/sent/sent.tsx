@@ -31,7 +31,7 @@ const SentView = ({messages, users}: ViewProps) => {
     {!messages && <CircularProgress size={50}/>}
     {messages && messages.filter(message => filter === 'all' || filter === message.for).map(message =>
       <Item key={message.id}>
-        <FeedbackCard feedback={message}/>
+        <FeedbackCard feedback={message} existingLabels={[]} />
       </Item>
     )}
   </View>;
