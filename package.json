@@ -65,7 +65,7 @@
     "@nrwl/eslint-plugin-nx": "11.0.4",
     "@nrwl/jest": "11.0.4",
     "@nrwl/node": "11.0.4",
-    "@nrwl/tao": "11.0.4",
+    "@nrwl/tao": "11.0.12",
     "@nrwl/web": "11.0.4",
     "@nrwl/workspace": "11.0.4",
     "@testing-library/react": "11.2.2",
