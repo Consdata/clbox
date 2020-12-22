@@ -11,7 +11,7 @@ export const discardInboxFeedbackEpic: Epic<ReturnType<typeof discardInboxFeedba
     .pipe(
         withLatestFrom(state$),
         switchMap(([{payload}, state]) => {
-            firebaseAnalytics.logEvent('user/feedback/inbox/edit-comment');
+            firebaseAnalytics.logEvent('user/feedback/inbox/discard');
             return from(
                 firebaseApp.firestore()
                     .collection(`team/${state.team.current.id}/user/${state.authentication.email}/inbox/`)
