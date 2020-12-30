@@ -2043,6 +2043,17 @@
     puka "^1.0.1"
     read-package-json-fast "^1.1.3"
 
+"@nrwl/cli@11.0.20":
+  version "11.0.20"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.0.20.tgz#b9b53124d9735c889ea9321d60bcd2d45966481d"
+  integrity sha512-ss4eHruXeFWtbTUAV0AjwOLJHi/p23QN9LXTrX45wkT0qM+B1ysL/is3V1pItHkSNJr6Ab/m00lATGORqi0b7Q==
+  dependencies:
+    "@nrwl/tao" "11.0.20"
+    chalk "4.1.0"
+    tmp "0.0.33"
+    yargs "15.4.1"
+    yargs-parser "20.0.0"
+
 "@nrwl/cli@11.0.4":
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.0.4.tgz#a07d6f460aa7a0fa464e039fbe46ffe0f5764419"
@@ -2170,6 +2181,25 @@
   version "11.0.12"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.12.tgz#f5691eaed506a02cb027bdfca4a771cdbf87d6f9"
   integrity sha512-apTfjNP4BqFkNLZsZQtdx+f34mDet6MR8fenqshq+EhZnkID4871jCwo18OQU8+KmH4VDxEkTrCPDRZbq6yHMQ==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    chalk "4.1.0"
+    fs-extra "7.0.1"
+    inquirer "^6.3.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@11.0.20":
+  version "11.0.20"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.20.tgz#dfca062d81bcb1ddff03cfe9f99ba05786cc101d"
+  integrity sha512-S/jaeenZ0ueQZgz54AGhMtK1Obs6KTwsojfHdB+FiEve2ipBbKKeBZXXfeXlH2priH5ej5FhosCEV1DKqXLlUg==
   dependencies:
     "@angular-devkit/architect" "~0.1100.1"
     "@angular-devkit/core" "~11.0.1"
