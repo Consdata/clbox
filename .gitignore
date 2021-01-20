@@ -39,6 +39,7 @@ testem.log
 .firebase
 firebase-debug.log
 tools/users-sync/users
+users-sync.sh
 
 # System Files
 .DS_Store
