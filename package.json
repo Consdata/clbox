@@ -60,7 +60,7 @@
     "@babel/preset-env": "7.12.11",
     "@babel/preset-react": "7.12.10",
     "@babel/preset-typescript": "7.12.7",
-    "@nrwl/cli": "11.0.4",
+    "@nrwl/cli": "11.2.9",
     "@nrwl/cypress": "11.0.4",
     "@nrwl/eslint-plugin-nx": "11.0.4",
     "@nrwl/jest": "11.0.4",
