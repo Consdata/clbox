@@ -34,27 +34,23 @@ interface UserStats {
 
 type ChapterStats = UserStats[];
 
-function statsFor(year: string, user: UserStats) {
-  return Object.entries(user.stats?.byYear[year] ?? [])
-    .filter(([key, value]) => key !== 'summary')
-    .map(([key, value]) => [key.substring(0, 7), value])
-    .reduce(
-      (result, pair) => ({
-        ...result,
-        [pair[0]]: (result[pair[0]] ?? 0) + pair[1]
-      }),
-      {}
-    );
+function statsFor(user: UserStats) {
+  const stats = {};
+  Object.keys(user.stats?.byYear ?? []).forEach(
+    year => Object.entries(user.stats?.byYear[year] ?? [])
+      .filter(([key, value]) => key !== 'summary')
+      .map(([key, value]) => [key.substring(0, 7), value])
+      .forEach(result => stats[result[0]] = result[1])
+  );
+  return stats;
 }
 
-const months = [
-  '2020-08',
-  '2020-09',
-  '2020-10',
-  '2020-11',
-  '2020-12',
-  '2021-01',
-]
+const dates = [];
+const today = new Date();
+for(let i = 0; i < 6; ++i) {
+  const date = new Date(today.getFullYear(), (today.getMonth() + 1) - i, 1);
+  dates.unshift(date.toISOString().slice(0,7));
+}
 
 const StatsView = ({team}: ViewProps) => {
   const [stats, setStates] = useState<ChapterStats>(undefined);
@@ -73,17 +69,17 @@ const StatsView = ({team}: ViewProps) => {
         <TableHead>
           <TableRow>
             <TableCell align="left">User</TableCell>
-            {months.map(month => <TableCell align="right" key={month}>{month}</TableCell>)}
+            {dates.map(month => <TableCell align="right" key={month}>{month}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
           {stats
-            ?.map(user => ({user, stats: statsFor('2020', user)}))
+            ?.map(user => ({user, stats: statsFor(user)}))
             .map(
               userStats => <TableRow key={userStats.user.user}>
                 <TableCell align="left">{userStats.user.user}</TableCell>
-                {months.map(month => <TableCell align="right" key={month}>
-                  {userStats.stats[month] ?? ''}
+                {dates.map(date => <TableCell align="right" key={date}>
+                  {userStats.stats[date] ?? ''}
                 </TableCell>)}
               </TableRow>
             )
