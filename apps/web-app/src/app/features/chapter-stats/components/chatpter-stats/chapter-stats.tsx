@@ -40,7 +40,7 @@ function statsFor(user: UserStats) {
     year => Object.entries(user.stats?.byYear[year] ?? [])
       .filter(([key, value]) => key !== 'summary')
       .map(([key, value]) => [key.substring(0, 7), value])
-      .forEach(result => stats[result[0]] = result[1])
+      .forEach(result => stats[result[0]] = (stats[result[0]] ?? 0) + result[1])
   );
   return stats;
 }
