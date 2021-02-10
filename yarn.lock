@@ -2054,6 +2054,17 @@
     yargs "15.4.1"
     yargs-parser "20.0.0"
 
+"@nrwl/cli@11.2.11":
+  version "11.2.11"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-11.2.11.tgz#3e60137b716086bf79ab5b73181f7522d3ad8c41"
+  integrity sha512-APQMPB5fJ1/MQoHmLJAKeeZZOHkvFWr7kbB+04c59XGwMX4zmIhWZ6JYE7jegIU1HRMCy4jwyBaaaJd0WJ6NUw==
+  dependencies:
+    "@nrwl/tao" "11.2.11"
+    chalk "4.1.0"
+    tmp "0.0.33"
+    yargs "15.4.1"
+    yargs-parser "20.0.0"
+
 "@nrwl/cypress@11.0.4":
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-11.0.4.tgz#78898bf0d032e637652b28553b3d2454799996fe"
@@ -2198,6 +2209,26 @@
     inquirer "^6.3.1"
     minimist "^1.2.5"
     rxjs "^6.5.4"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@11.2.11":
+  version "11.2.11"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.2.11.tgz#fbf3ee2fc5216582f766b675c0e10627453e021a"
+  integrity sha512-tIj63wxpT3mRKg+GePzjWzOWss+tqW8c85UW5ko0pZWQqEo1JCrcW9Tc59eveCdr89tF9mApMlGpuS6YH9yI0A==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    chalk "4.1.0"
+    fs-extra "7.0.1"
+    inquirer "^6.3.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    rxjs-for-await "0.0.2"
     semver "6.3.0"
     strip-json-comments "2.0.1"
     tmp "0.0.33"
@@ -13015,6 +13046,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   integrity sha1-6Eg5bwV9Ij8kOGkkYY4laUFh7Ec=
   dependencies:
     aproba "^1.1.1"
+
+rxjs-for-await@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/rxjs-for-await/-/rxjs-for-await-0.0.2.tgz#26598a1d6167147cc192172970e7eed4e620384b"
+  integrity sha512-IJ8R/ZCFMHOcDIqoABs82jal00VrZx8Xkgfe7TOKoaRPAW5nH/VFlG23bXpeGdrmtqI9UobFPgUKgCuFc7Lncw==
 
 rxjs@6.6.3, rxjs@^6.3.3, rxjs@^6.4.0, rxjs@^6.5.4:
   version "6.6.3"
