@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import {Epic} from 'redux-observable';
 import {combineLatest, Observable, of} from 'rxjs';
-import {distinct, map, switchMap} from 'rxjs/operators';
+import {distinct, filter, map, switchMap} from 'rxjs/operators';
 import {inboxStatsFetched} from "./inbox-stats-fetched";
 import {InboxStats} from "../../model/inbox-stats";
 import {firebaseApp} from "../../../firebase/firebase.app";
@@ -28,6 +28,7 @@ export const fetchInboxStatsEpic: Epic<ReturnType<typeof loggedIn>, any, AppStat
       return of<firebase.firestore.DocumentSnapshot>();
     }
   }),
+  filter(doc => !!doc.data()),
   map(doc => inboxStatsFetched({
       stats: doc.data() as InboxStats
   }))

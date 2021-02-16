@@ -44,3 +44,5 @@ users-sync.sh
 # System Files
 .DS_Store
 Thumbs.db
+
+release-dummy.sh
