@@ -36,7 +36,7 @@
               "extractCss": true,
               "sourceMap": {
                 "scripts": true,
-                "vendor": true,
+                "vendor": false,
                 "hidden": true
               },
               "namedChunks": false,
