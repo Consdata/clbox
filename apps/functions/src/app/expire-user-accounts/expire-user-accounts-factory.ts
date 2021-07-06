@@ -41,22 +41,23 @@ export const expireUserAccountsFactory = (
                         const authUser = await tryGetUserByEmail(user.id);
                         if (authUser) {
                             console.log(`User to disable: ${user.id} with expire date ${user.data().expireDate}`);
-                            console.log(authUser);
-
                             await firebase.auth().updateUser(authUser.uid, {
                                 disabled: true
                             });
 
                             const userDoc = firestore.collection(`team/${team}/user/`).doc(user.id);
-                            console.log(userDoc);
                             await firestore.runTransaction(async trn => {
                                 const existingUserDoc = await trn.get(userDoc);
-                                trn
-                                    .delete(userDoc)
-                                    .create(
-                                        firestore.collection(`team/${team}/removed-users/`).doc(existingUserDoc.id),
-                                        existingUserDoc.data()
-                                    );
+                                const existingUserData = existingUserDoc.data();
+
+                                const removedUserDoc = firestore.collection(`team/${team}/removed-users/`).doc(existingUserDoc.id);
+                                await trn.delete(userDoc)
+
+                                if (!(await trn.get(removedUserDoc)).exists) {
+                                    await trn.create(removedUserDoc, existingUserData);
+                                } else {
+                                    console.log(`Removed user document already exists for user: ${user.id}, skipping creation`);
+                                }
                             });
                         }
                     })
