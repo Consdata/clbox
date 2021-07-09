@@ -42,6 +42,10 @@ service cloud.firestore {
     match /team/{team}/channel/{channel}/{document=**} {
       allow read, write: if isAuthentiacted(request) && getChannel(team, channel).managerMap[authEmail(request)] == true
     }
+    match /team/{team}/survey/{survey} {
+      allow read: if isAuthentiacted(request) && resource.data.forUser == authEmail(request)
+    }
+
     // default deny
     match /{document=**} {
       allow read, write: if false;

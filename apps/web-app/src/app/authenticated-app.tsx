@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppRouting} from './app-routing';
+import {AppRoutingAuthenticated} from './app-routing';
 import {LayoutBody} from './features/layout/layout-body';
 import {LayoutHeader} from './features/layout/layout-header';
 import {Navbar} from './features/navbar/navbar';
@@ -11,6 +11,6 @@ export const AuthenticatedApp = () => <>
         <Navbar/>
     </LayoutHeader>
     <LayoutBody>
-        <AppRouting/>
+        <AppRoutingAuthenticated/>
     </LayoutBody>
 </>;

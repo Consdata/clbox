@@ -2,9 +2,9 @@ import {StylesProvider} from '@material-ui/core/styles';
 import React, {useEffect} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {AuthenticatedApp} from './authenticated-app';
-import {UnauthenticatedApp} from './features/authentication/components/unauthenticated-app/unauthenticated-app';
 import {appBootstrap} from './platform/app-bootstrap';
 import {AppState} from './state/app-state';
+import {UnauthenticatedApp} from './unauthenticated-app';
 
 const AppWrapperView = ({authenticated, bootstrapped}: ViewProps) => {
     useEffect(() => {
